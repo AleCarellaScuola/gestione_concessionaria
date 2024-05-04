@@ -1,5 +1,5 @@
 <?php
-    $data     = json_decode(file_get_contents("config.json"), true);
+    $data     = json_decode(file_get_contents("../config.json"), true);
     $host     = $data['host'];
     $password = $data['password'];
     $dbname   = $data['dbname'];
@@ -10,13 +10,13 @@
     // comando SQL  
     $query = "
                 SELECT
-                    veicoli.prezzo,
-                    modelli.nome
+                    Concessionaria_veicoli.prezzo,
+                    Concessionaria_modelli.nome
                 FROM
-                    veicoli
+                    Concessionaria_veicoli
                 JOIN
-                    modelli
-                        ON veicoli.id_modello = modelli.id_modello";
+                    Concessionaria_modelli
+                        ON Concessionaria_veicoli.id_modello = Concessionaria_modelli.id_modello";
     $stmt = $conn->query($query, PDO::FETCH_ASSOC);
     $result = $stmt->fetchAll();
 

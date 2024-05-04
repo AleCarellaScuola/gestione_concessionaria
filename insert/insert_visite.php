@@ -1,5 +1,5 @@
 <?php
-    $data     = json_decode(file_get_contents("config.json"), true);
+    $data     = json_decode(file_get_contents("../config.json"), true);
     $host     = $data['host'];
     $password = $data['password'];
     $dbname   = $data['dbname'];
@@ -9,7 +9,7 @@
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // comando SQL  
     $query = "
-                INSERT INTO visite
+                INSERT INTO Concessionaria_visite
                 (id_veicolo, id_utente, data_visita)
                 VALUES
                 (:id_veicolo, :id_utente, :data_visita)";

@@ -1,5 +1,6 @@
-<?php
-    $data     = json_decode(file_get_contents("config.json"), true);
+<?php  
+    
+    $data     = json_decode(file_get_contents("../config.json"), true);
     $host     = $data['host'];
     $password = $data['password'];
     $dbname   = $data['dbname'];
@@ -8,21 +9,21 @@
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // comando SQL  
-    $query = "
-                SELECT
-                    utenti.nome, utenti.cognome, utenti.data_iscrizione, utenti.data_nascita, utenti.email, utenti.indirizzo,
-                    province.nome, province.acronimo
+    $query = "SELECT
+                    Concessionaria_Utenti.nome, Concessionaria_Utenti.cognome, Concessionaria_Utenti.data_iscrizione, Concessionaria_Utenti.data_nascita, Concessionaria_Utenti.email, Concessionaria_Utenti.indirizzo,
+                    Concessionaria_Province.nome AS nome_provincia, Concessionaria_Province.acronimo
                 FROM
-                    utenti
+                    Concessionaria_Utenti
                 JOIN 
-                    province
-                        ON utenti.id_provincia = province.id_provincia";
+                    Concessionaria_Province
+                        ON Concessionaria_Utenti.id_provincia = Concessionaria_Province.id_provincia";
     $stmt = $conn->query($query, PDO::FETCH_ASSOC);
     $result = $stmt->fetchAll();
 
+    
     if (count($result) > 0) {
         foreach ($result as $row) {
-        $risp["utenti"][] = $row;
+            $risp["utenti"][] = $row;
         }
         echo (json_encode($risp));
     } else {
@@ -31,9 +32,11 @@
 
     }
 
-    $conn = null;
+    
+
+    $conn   = null;
     $result = null;
-    $stmt = null;
+    $stmt   = null;
     } catch (PDOException $e) {
         die("Errore: " . $e->getMessage());
     }

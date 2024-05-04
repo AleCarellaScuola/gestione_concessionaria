@@ -1,5 +1,5 @@
 <?php
-    $data     = json_decode(file_get_contents("config.json"), true);
+    $data     = json_decode(file_get_contents("../config.json"), true);
     $host     = $data['host'];
     $password = $data['password'];
     $dbname   = $data['dbname'];
@@ -10,9 +10,9 @@
     // comando SQL  
     $query = "
                 SELECT
-                    descrizione
+                    Concessionaria_categorie.descrizione
                 FROM
-                    categorie";
+                    Concessionaria_categorie";
     $stmt = $conn->query($query, PDO::FETCH_ASSOC);
     $result = $stmt->fetchAll();
 

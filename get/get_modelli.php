@@ -1,5 +1,5 @@
 <?php
-    $data     = json_decode(file_get_contents("config.json"), true);
+    $data     = json_decode(file_get_contents("../config.json"), true);
     $host     = $data['host'];
     $password = $data['password'];
     $dbname   = $data['dbname'];
@@ -10,25 +10,25 @@
     // comando SQL  
     $query = "
                 SELECT
-                    modelli.nome, 
-                    case_automobilistiche.nome,
-                    cilindrate.valore,
-                    alimentazioni.nome,
-                    categorie.descrizione
+                    Concessionaria_modelli.nome, 
+                    Concessionaria_case_automobilistiche.nome,
+                    Concessionaria_cilindrate.valore,
+                    Concessionaria_alimentazioni.nome,
+                    Concessionaria_categorie.descrizione
                 FROM
-                    modelli
+                    Concessionaria_modelli
                 JOIN
-                    case_automobilistiche
-                        ON modelli.id_casa = case_automobilistiche.id_casa
+                    Concessionaria_case_automobilistiche
+                        ON Concessionaria_modelli.id_casa = Concessionaria_case_automobilistiche.id_casa
                 JOIN
-                    cilindrate
-                        ON modelli.id_cilindrata = cilindrate.id_cilindrata
+                    Concessionaria_cilindrate
+                        ON Concessionaria_modelli.id_cilindrata = Concessionaria_cilindrate.id_cilindrata
                 JOIN 
-                    alimentazioni
-                        ON modelli.id_alimentazione = alimentazioni.id_alimentazione
+                    Concessionaria_alimentazioni
+                        ON Concessionaria_modelli.id_alimentazione = Concessionaria_alimentazioni.id_alimentazione
                 JOIN
-                    categorie
-                        ON modelli.id_categoria = categorie.id_categoria";
+                    Concessionaria_categorie
+                        ON Concessionaria_modelli.id_categoria = Concessionaria_categorie.id_categoria";
     $stmt = $conn->query($query, PDO::FETCH_ASSOC);
     $result = $stmt->fetchAll();
 
