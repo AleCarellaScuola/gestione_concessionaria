@@ -1,5 +1,5 @@
 <?php
-    //TODO hash the password and check the email
+    //TODO check input
     $data     = json_decode(file_get_contents("../config.json"), true);
     $host     = $data['host'];
     $password = $data['password'];
@@ -22,11 +22,21 @@
     $email_utente      = $_GET["email_utente"];
     $psw_utente        = $_GET["psw_utente"];
     $provincia_utente  = $_GET["provincia_utente"];
+
+    $encrypted_psw     = password_hash($psw_utente, PASSWORD_DEFAULT);
+    if(!filter_var($email_utente, FILTER_VALIDATE_EMAIL))
+    {
+        echo("L'email non e' valida");
+        return;
+    } 
+    else
+    {
+        $stmt->bindParam(":email_utente", $email_utente, PDO::PARAM_STR);
+    }
     $stmt->bindParam(":nome_utente", $nome_utente, PDO::PARAM_STR);
     $stmt->bindParam(":cognome_utente", $cognome_utente, PDO::PARAM_STR);
     $stmt->bindParam(":data_nascita", $data_nascita, PDO::PARAM_STR);
-    $stmt->bindParam(":email_utente", $email_utente, PDO::PARAM_STR);
-    $stmt->bindParam(":psw_utente", $psw_utente, PDO::PARAM_STR);
+    $stmt->bindParam(":psw_utente", $encrypted_psw, PDO::PARAM_STR);
     $stmt->bindParam(":indirizzo_utente", $indirizzo, PDO::PARAM_STR);
     $stmt->bindParam(":provincia_utente", $provincia_utente, PDO::PARAM_INT);
     $stmt->execute();

@@ -42,13 +42,13 @@
             let password   = $("#psw").val();
             
             $.ajax({
-                url: "insert_utenti.php?nome_utente=" + first_name
-                     + "cognome_utente="              + last_name
-                     + "data_nascita="                + birth_date
-                     + "indirizzo_utente="            + address
-                     + "email_utente="                + email
-                     + "psw_utente="                  + password
-                     + "provincia_utente="            + provincia,
+                url: "../insert/insert_utenti.php?nome_utente="  + first_name
+                     + "&cognome_utente="                        + last_name
+                     + "&data_nascita="                          + birth_date
+                     + "&indirizzo_utente="                      + address
+                     + "&email_utente="                          + email
+                     + "&psw_utente="                            + password
+                     + "&provincia_utente="                      + provincia,
                 method: 'GET',
                 dataType: 'html',
                 success: function (risultato) {
@@ -68,5 +68,6 @@
 if(isset($_POST["send_data"]))
 {
     //TODO start session e reidirizzamento alla pagina menu con i rispettivi cookie se e' admin o meno
+    //TODO Understand how to pass the admin value
 }
 ?>

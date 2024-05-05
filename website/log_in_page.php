@@ -33,8 +33,8 @@ if(isset($_POST["send_data"]))
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // comando SQL  
         $query = "SELECT
-                     Concessionaria_Utenti.email, Concessionaria_Utenti.password
-                 FROM
+                     Concessionaria_Utenti.email, Concessionaria_Utenti.password, Concessionaria_Utenti.admin
+                  FROM
                      Concessionaria_Utenti";
         $stmt = $conn->query($query, PDO::FETCH_ASSOC);
         $result = $stmt->fetchAll();
@@ -49,8 +49,11 @@ if(isset($_POST["send_data"]))
                 {
                     echo "Accesso effettuato";
                     $controllo = true;
-                    header("refresh:5;url=index.html");
                     //TODO iniziare sessione e come "cookie" mettere se l'utente e' admin o meno e reinderizzarlo alla pagina menu
+                    session_start();
+                    $_SESSION["admin_value"] = $row["admin"];
+                    //print_r($_SESSION["admin_value"]);
+                    header("refresh:5;url=menu.php");
                     break;
                 }
             }
