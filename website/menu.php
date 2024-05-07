@@ -8,28 +8,102 @@
 </head>
 
 <body>
-    <div id = "user">
-        <label id = "email_user"></label>   
-    </div>
+    <p id = "user">
+    </p>
 
     <div id = "actions">
         <select id = "get_action">
             <option>Azioni</option>
-            <option id = "modify_car">Modifica auto</option>
-            <option id = "modify_case">Modifica casa autombilistica</option>
-            <option id = "modify_categorie">Modifica categoria</option>
-            <option id = "modify_cilindrate">Modifica cilindrata</option>
-            <option id = "modify_utenti">Modifica utenti</option>
-            <option id = "query">Esegui query</option>
+            <option id = "modifica_auto" value = "auto">Gestisci auto</option>
+            <option id = "modifica_case" value = "case">Gestisci casa autombilistica</option>
+            <option id = "modifica_categorie" value = "categorie">Gestisci categoria</option>
+            <option id = "modifica_cilindrate" value = "cilindrate">Gestisci cilindrata</option>
+            <option id = "modifica_utenti" value = "utenti">Gestisci utenti</option>
         </select>
-    </div>
+        <br>
+        <div id = choose_action>
+            <button type = "button" id = "insert">Inserisci</button>
+            <button type = "button" id = "delete">Elimina</button>
+            <button type = "button" id = "visualize">Visualizza</button>
+        </div> 
+        <a id = "query" href = "do_query.php">Esegui query</a>
 
-    <div id = "result_query">
-    </div>
+        <div id = "visualize_data">
 
-    <input type="email" name="rif_email" id="email" placeholder="email"><br>
-    <input type="password" name="rif_psw" id="psw" placeholder="password"><br>
-    <button type="button" id="registrati" name="send_data">Registrati</button>
+        </div>
+    </div>
 </body>
 </html>
+
+<script>
+    //TODO capire come far visualizzare i dati in base a cosa sceglie l'utente nel menu a tendina, quindi visualizzare di default e offrire la scelta di inserire, modificare o eliminare 
+    // e in questi casi reinderizzare l'utente in un pagina a parte
+    $(document).ready(function() {
+        $("#choose_action").hide();
+    });
+
+    function visualize(path_to_file)
+    {
+        w3.getHttpObject(pato_to_file, get_data);
+    }
+    
+    function get_data(risultato, id_div)
+    {
+        w3.displayObject(id_div, risultato);
+    }
+
+    function user_actions()
+    {   
+        $("#get_action").append("<option id = \"ricerca_veicolo\">Ricerca veicolo</option>");
+        $("#modifica_auto").hide();
+        $("#modifica_case").hide();
+        $("#modifica_categorie").hide();
+        $("#modifica_cilindrate").hide();
+        $("#modifica_utenti").hide();
+    }
+
+    $(document).ready(function() {
+        console.log($("#get_action option:selected").val());
+        $("#get_action").on('change', function() {
+            switch($("#get_action option:selected").val())
+            {
+                case "auto":
+                    $("#choose_action").show();
+                    break;
+                case "case":
+                    $("#choose_action").show();
+                    break;
+                case "categorie":
+                    $("#choose_action").show();
+                    break;
+                case "cilindrate":
+                    $("#choose_action").show();
+                    break;
+                case "utenti":
+                    $("#choose_action").show();
+                    break;
+                default:   
+                    $("#choose_action").hide();
+                    break;
+            }
+        })
+    });
+</script>
+
+
+<?php
+    session_start();
+    $name_user    = $_SESSION["name"];
+    $surname_user = $_SESSION["surname"];
+    $email_user   = $_SESSION["email"];
+    $user_details = "<label id = 'name_surname_user'>$name_user, $surname_user</label><br>"
+                    . "<label id = 'email_user'>$email_user</label>";
+    echo "<script>$(\"#user\").html(\"$user_details\");</script>";
+
+    if($_SESSION["admin_value"] == 0)
+    {
+        echo "<script>user_actions()</script>";
+    }
+
+?>
 

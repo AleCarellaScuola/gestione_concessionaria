@@ -33,6 +33,7 @@ if(isset($_POST["send_data"]))
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // comando SQL  
         $query = "SELECT
+                     Concessionaria_Utenti.nome, Concessionaria_Utenti.cognome,
                      Concessionaria_Utenti.email, Concessionaria_Utenti.password, Concessionaria_Utenti.admin
                   FROM
                      Concessionaria_Utenti";
@@ -52,8 +53,11 @@ if(isset($_POST["send_data"]))
                     //TODO iniziare sessione e come "cookie" mettere se l'utente e' admin o meno e reinderizzarlo alla pagina menu
                     session_start();
                     $_SESSION["admin_value"] = $row["admin"];
+                    $_SESSION["name"]        = $row["nome"];
+                    $_SESSION["surname"]     = $row["cognome"];
+                    $_SESSION["email"]       = $row["email"];
                     //print_r($_SESSION["admin_value"]);
-                    header("refresh:5;url=menu.php");
+                    header("refresh:2;url=menu.php");
                     break;
                 }
             }

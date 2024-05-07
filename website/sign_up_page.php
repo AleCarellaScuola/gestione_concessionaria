@@ -14,8 +14,8 @@
 <body>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
      <div class="riquadro">
-        Sign-Up 
-        <div class="form-group">
+         <div class="form-group">
+            <h3>Sign-Up</h3>
             <div class="form-floating mb-3">        
                 <input type="text"  class="form-control" name="rif_name" id="name" placeholder = "Inserisci il tuo nome">
                 <label for="name">Nome</label>
@@ -97,9 +97,14 @@
 </html>
 
 <?php
+//TODO check input
 if(isset($_POST["send_data"]))
 {
-    //TODO start session e reidirizzamento alla pagina menu con i rispettivi cookie se e' admin o meno
-    //TODO Understand how to pass the admin value
+   session_start();
+   $_SESSION["admin_value"] = 0;
+   $_SESSION["name"]        = $_POST["rif_name"];
+   $_SESSION["surname"]     = $_POST["rif_surname"];
+   $_SESSION["email"]       = $_POST["rif_email"];
+   header("refresh:2;url=menu.php");
 }
 ?>
