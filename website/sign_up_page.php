@@ -14,22 +14,22 @@
 <body>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
      <div class="riquadro">
-         <div class="form-group">
-            <h4>Sign-up</h4>
+        Sign-Up 
+        <div class="form-group">
             <div class="form-floating mb-3">        
                 <input type="text"  class="form-control" name="rif_name" id="name" placeholder = "Inserisci il tuo nome">
                 <label for="name">Nome</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="rif_surname" id="surname" plaecholder = "Inserisci il tuo cognome">
+                <input type="text" class="form-control" name="rif_surname" id="surname" placeholder = "Inserisci il tuo cognome">
                 <label for="surname">Cognome</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="date" class="form-control" name="rif_birth_date" id="birth_date" >
+                <input type="date" class="form-control" name="rif_birth_date" id="birth_date">
                 <label for="birth_date">Data di nascita</label>
                 </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="rif_address" id="address" plaecholder = "Inserisci il tuo indirizzo"><br>
+                <input type="text" class="form-control" name="rif_address" id="address" placeholder = "Inserisci il tuo indirizzo..."><br>
                 <label for="address">Indirizzo</label>
             </div>
             <div class="form mb-3">
@@ -38,7 +38,6 @@
                 <option selected>Seleziona la provincia</option>
                 <option w3-repeat = "province" name = "rif_province" value = "{{id_provincia}}">{{nome}}, {{acronimo}}</option>
                 </select>
-                
             </div>
             <br>
             <div class="form-floating mb-3">
