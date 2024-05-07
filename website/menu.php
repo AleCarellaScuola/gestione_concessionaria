@@ -24,12 +24,13 @@
         <div id = choose_action>
             <button type = "button" id = "insert">Inserisci</button>
             <button type = "button" id = "delete">Elimina</button>
-            <button type = "button" id = "visualize">Visualizza</button>
+            <button type = "button" id = "modify">Modifica</button>
         </div> 
         <a id = "query" href = "do_query.php">Esegui query</a>
 
         <div id = "visualize_data">
-
+            <table id = "data">
+            </table>
         </div>
     </div>
 </body>
@@ -44,12 +45,41 @@
 
     function visualize(path_to_file)
     {
-        w3.getHttpObject(pato_to_file, get_data);
+        w3.getHttpObject(path_to_file, get_data);
     }
     
-    function get_data(risultato, id_div)
+    function get_data(risultato)
     {
-        w3.displayObject(id_div, risultato);
+        w3.displayObject("data", risultato);
+        console.log(risultato);
+    }
+
+    function change_data_to_visualize(action)
+    {
+        switch(action)
+        {
+            case "case":
+                $("#data").append(
+                    "<tr>",
+                    "<th>Nome</th>",
+                    "<th>P. Iva</th>",
+                    "</tr>",
+                    "<tr w3-repeat=\"case\">",
+                    "<td>{{nome}}</td>",
+                    "<td>{{p_iva}}</td>",
+                    "</tr>"
+                );
+                break;
+            case "categorie":
+
+                break;
+            case "cilindrate":
+
+                break;
+            case "utenti":
+
+                break;
+        }
     }
 
     function user_actions()
@@ -62,6 +92,7 @@
         $("#modifica_utenti").hide();
     }
 
+    //TODO capire come far visualizzare i dati
     $(document).ready(function() {
         console.log($("#get_action option:selected").val());
         $("#get_action").on('change', function() {
@@ -70,8 +101,10 @@
                 case "auto":
                     $("#choose_action").show();
                     break;
-                case "case":
-                    $("#choose_action").show();
+                    case "case":
+                        $("#choose_action").show();
+                        change_data_to_visualize($("#get_action option:selected").val());
+                        visualize("../get/get_case.php");
                     break;
                 case "categorie":
                     $("#choose_action").show();
