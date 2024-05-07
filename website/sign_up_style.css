@@ -7,8 +7,12 @@
 }
 
 .riquadro{
-    width: 60%;
     background-color: lightgray;
     margin:10px;
     border-radius: 16px;
 }
+
+body.invert {
+  filter: invert(100%);
+}
+

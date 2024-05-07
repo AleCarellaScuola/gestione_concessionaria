@@ -11,51 +11,63 @@
     
 </head>
 
-<body>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-     <div class="riquadro">
-         <div class="form-group">
-            <h3>Sign-Up</h3>
-            <div class="form-floating mb-3">        
-                <input type="text"  class="form-control" name="rif_name" id="name" placeholder = "Inserisci il tuo nome">
-                <label for="name">Nome</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="rif_surname" id="surname" placeholder = "Inserisci il tuo cognome">
-                <label for="surname">Cognome</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="date" class="form-control" name="rif_birth_date" id="birth_date">
-                <label for="birth_date">Data di nascita</label>
-                </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="rif_address" id="address" placeholder = "Inserisci il tuo indirizzo..."><br>
-                <label for="address">Indirizzo</label>
-            </div>
-            <div class="form mb-3">
-                
-                <select id = "province" class="form-select">
-                <option selected>Seleziona la provincia</option>
-                <option w3-repeat = "province" name = "rif_province" value = "{{id_provincia}}">{{nome}}, {{acronimo}}</option>
-                </select>
-            </div>
-            <br>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" name="rif_email" id="email" placeholder="email"><br>
-                <label for="email">E-mail</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" name="rif_psw" id="psw" placeholder="password"><br>
-                <label for="psw">Password</label>
-            </div>
-            <button type="button" class = "btn btn-outline-primary" id="registrati" name="send_data">Registrati</button>
-        </div>
-    </div>
- </form>
+<body >
+    
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <div class="riquadro col col-xl-4 col-lg-4 col-md-4 col-sm-4 mx-auto">
+            <div class="form-group">
+                <h3>Sign-Up</h3>
+                <button id="invert" class="container" aria-label="Toggle color mode" title="Toggle color mode">
+                    <div class="sun visible"></div>
 
+                    <div class="moon">
+                    <div class="star"></div>
+                    <div class="star small"></div>
+                    </div>
+                 </button>
+                <div class="form-floating mb-3">        
+                    <input type="text"  class="form-control" name="rif_name" id="name" placeholder = "Inserisci il tuo nome">
+                    <label for="name">Nome</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="rif_surname" id="surname" placeholder = "Inserisci il tuo cognome">
+                    <label for="surname">Cognome</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" name="rif_birth_date" id="birth_date">
+                    <label for="birth_date">Data di nascita</label>
+                    </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="rif_address" id="address" placeholder = "Inserisci il tuo indirizzo..."><br>
+                    <label for="address">Indirizzo</label>
+                </div>
+                <div class="form mb-3">
+                    
+                    <select id = "province" class="form-select">
+                    <option selected>Seleziona la provincia</option>
+                    <option w3-repeat = "province" name = "rif_province" value = "{{id_provincia}}">{{nome}}, {{acronimo}}</option>
+                    </select>
+                </div>
+                <br>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" name="rif_email" id="email" placeholder="email"><br>
+                    <label for="email">E-mail</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" name="rif_psw" id="psw" placeholder="password"><br>
+                    <label for="psw">Password</label>
+                </div>
+                <button type="button" class = "btn btn-outline-primary" id="registrati" name="send_data">Registrati</button>
+            </div>
+        </div>
+        </form>
+  
 </body>
 
 <script>
+
+
+
     w3.getHttpObject("../get/get_province.php", get_province);
 
     function get_province(risultato)
