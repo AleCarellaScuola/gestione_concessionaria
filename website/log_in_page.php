@@ -23,10 +23,9 @@
                     <input type="password" class="form-control" name="rif_psw" id="psw" placeholder="password"><br>
                     <label for="psw">Password</label>
                 </div> 
-                    <button type="submit" id="accedi" name="send_data">Accedi</button>
+                    <button type="submit" class = "btn btn-outline-dark" id="accedi" name="send_data">Accedi</button>
                     <br>
                     <a href="sign_up_page.php">Registrati</a>
-            
            </div>
         </div>
     </form>
@@ -39,6 +38,7 @@ if(isset($_POST["send_data"]))
 {
     $email_utente = $_POST["rif_email"];
     $psw_utente   = $_POST["rif_psw"];
+    
     $data     = json_decode(file_get_contents("../config.json"), true);
     $host     = $data['host'];
     $password = $data['password'];

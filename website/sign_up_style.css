@@ -1,18 +1,17 @@
 .form-group{
 
- padding: 15px;
- 
-
-
-}
-
-.riquadro{
-    background-color: lightgray;
-    margin:10px;
-    border-radius: 16px;
-}
-
-body.invert {
-  filter: invert(100%);
-}
-
+    padding: 15px;
+    
+   
+   
+   }
+   
+   .riquadro{
+       background-color: lightgray;
+       margin:10px;
+       border-radius: 16px;
+   }
+   
+   body.invert {
+     filter: invert(100%);
+   }
