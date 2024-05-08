@@ -1,5 +1,5 @@
 <?php
-    require "../menu.php";
+    require "menu.php";
 ?>
 <!doctype html>
 <html>
@@ -37,7 +37,7 @@
 
     function get_houses(risultato)
     {
-        w3.displayObject("data", risultato);
+        w3.displayObject("view_data", risultato);
         console.log(risultato);
     }
 </script>

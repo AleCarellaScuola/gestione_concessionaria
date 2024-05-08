@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 
@@ -15,15 +14,15 @@
     <div id = "actions">
         <label>Azioni</label>
         <br>
-        <a href = "management/manage_cars.php" id = "gestisci_auto">Gestisci auto</a>
+        <a href = "manage_cars.php" id = "gestisci_auto">Gestisci auto</a>
         <br>
-        <a href = "management/manage_houses.php" id = "gestisci_case">Gestisci case automobilistiche</a>
+        <a href = "manage_houses.php" id = "gestisci_case">Gestisci case automobilistiche</a>
         <br>
-        <a href = "management/manage_categories.php" id = "gestisci_categorie">Gestisci categorie</a>
+        <a href = "manage_categories.php" id = "gestisci_categorie">Gestisci categorie</a>
         <br>
-        <a href = "management/manage_displacements.php" id = "gestisci_cilindrate">Gestisci cilindrate</a>
+        <a href = "manage_displacements.php" id = "gestisci_cilindrate">Gestisci cilindrate</a>
         <br>
-        <a href = "management/manage_users.php" id = "gestisci_utenti">Gestisci utenti</a>
+        <a href = "manage_users.php" id = "gestisci_utenti">Gestisci utenti</a>
         <br>
         <a id = "query" href = "do_query.php">Esegui query</a>
     </div>
@@ -31,9 +30,7 @@
 </html>
 
 <script>
-    //TODO capire come far visualizzare i dati in base a cosa sceglie l'utente nel menu a tendina, quindi visualizzare di default e offrire la scelta di inserire, modificare o eliminare 
-    // e in questi casi reinderizzare l'utente in un pagina a parte
-    /*function user_actions()
+    function user_actions()
     {   
         $("#gestisci_auto").remove();
         $("#gestisci_case").remove();
@@ -41,7 +38,7 @@
         $("#gestisci_cilindrate").remove();
         $("#gestisci_utenti").remove();
         $("#actions").append("<a href = \"management/search_cars.php\" id = \"ricerca_veicolo\">Ricerca veicolo</a>");
-    }*/
+    }
 </script>
 
 

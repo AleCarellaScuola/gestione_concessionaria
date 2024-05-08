@@ -39,9 +39,8 @@
     $stmt->bindParam(":psw_utente", $encrypted_psw, PDO::PARAM_STR);
     $stmt->bindParam(":indirizzo_utente", $indirizzo, PDO::PARAM_STR);
     $stmt->bindParam(":provincia_utente", $provincia_utente, PDO::PARAM_INT);
-    $stmt->execute();
     if ($stmt->execute() === TRUE) {
-        echo "Provincia inserita con successo";
+        echo "Utente inserito con successo";
     } else {
         echo "Errore!";
 

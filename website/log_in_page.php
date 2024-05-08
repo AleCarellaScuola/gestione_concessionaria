@@ -73,7 +73,7 @@ if(isset($_POST["send_data"]))
                     $_SESSION["surname"]     = $row["cognome"];
                     $_SESSION["email"]       = $row["email"];
                     //print_r($_SESSION["admin_value"]);
-                    header("refresh:2;url=menu.php");
+                    header("refresh:2;url=/management/menu.php");
                     break;
                 }
             }

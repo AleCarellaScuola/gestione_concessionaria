@@ -10,7 +10,7 @@
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // comando SQL  
     $query = "SELECT
-                    Concessionaria_Utenti.nome, Concessionaria_Utenti.cognome, Concessionaria_Utenti.data_iscrizione, Concessionaria_Utenti.data_nascita, Concessionaria_Utenti.email, Concessionaria_Utenti.indirizzo,
+                    Concessionaria_Utenti.id_utente, Concessionaria_Utenti.nome, Concessionaria_Utenti.cognome, Concessionaria_Utenti.data_iscrizione, Concessionaria_Utenti.data_nascita, Concessionaria_Utenti.email, Concessionaria_Utenti.indirizzo,
                     Concessionaria_Province.nome AS nome_provincia, Concessionaria_Province.acronimo
                 FROM
                     Concessionaria_Utenti

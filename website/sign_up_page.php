@@ -98,6 +98,7 @@
                 dataType: 'html',
                 success: function (risultato) {
                     alert(risultato);
+                    window.location.href = "management/menu.php";
                 },
                 error: function (error) {
                     console.log("Errore: " + error);
@@ -118,6 +119,5 @@ if(isset($_POST["send_data"]))
    $_SESSION["name"]        = $_POST["rif_name"];
    $_SESSION["surname"]     = $_POST["rif_surname"];
    $_SESSION["email"]       = $_POST["rif_email"];
-   header("refresh:2;url=menu.php");
 }
 ?>
