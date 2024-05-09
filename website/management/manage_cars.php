@@ -32,7 +32,7 @@
 </html>
 
 <script>
-
+    //TODO gestisci auto
     w3.getHttpObject("../../get/get_case.php", get_houses);
 
     function get_houses(risultato)

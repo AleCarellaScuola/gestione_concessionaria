@@ -49,7 +49,7 @@ require "menu.php";
                 <th>Elimina</th>
                 <th>Modifica</th>
             </tr>
-            <tr w3-repeat="utenti" id="val_casa" value="{{id_casa}}">
+            <tr w3-repeat="case" id="val_casa" value="{{id_casa}}">
                 <td>{{nome}}</td>
                 <td>{{p_iva}}</td>
                 <td><button type="button" id="delete" onclick="delete_record()">Elimina</button></td>
@@ -79,7 +79,7 @@ require "menu.php";
             success: function(risultato) {
                 alert(risultato);
                 $("#view_data").empty();
-                w3.getHttpObject("../../get/get_case.php", get_users);
+                w3.getHttpObject("../../get/get_case.php", get_case);
             },
             error: function(error) {
                 console.log("Errore: " + error);
@@ -91,7 +91,7 @@ require "menu.php";
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
         $("#action").text("Modifica casa automobilistica");
         $("#view_data").empty();
-        w3.getHttpObject("../../get/get_case.php", get_users);
+        w3.getHttpObject("../../get/get_case.php", get_case);
     }
 
     function do_insert() {
@@ -119,6 +119,6 @@ require "menu.php";
             error: function (error) {
                 console.log("Errore: " + error);
             }
-        });*/
+        });
     }
 </script>
