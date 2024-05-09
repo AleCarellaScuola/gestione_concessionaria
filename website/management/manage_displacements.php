@@ -42,7 +42,7 @@
             <th>Elimina</th>
             <th>Modifica</th>
             </tr>
-            <tr w3-repeat="cilindrate">
+            <tr w3-repeat="cilindrate" id = "val_cilindrata" value = "{{id_cilindrata}}">
             <td>{{valore}}</td>
             <td><button type = "button" id = "delete" onclick = "delete_record()">Elimina</button></td>
             <td><button type = "button" id = "modify" onclick = "modify_record()">Modifica</button></td>
