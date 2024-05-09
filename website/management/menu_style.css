@@ -1,0 +1,36 @@
+
+
+
+
+.riquadro{
+    background-color: lightgray;
+    margin:10px;
+    border-radius: 16px;
+    width: 30;
+}
+
+
+
+li a:hover{
+
+    text-decoration: none;
+    color:whitesmoke;
+    background-color: rgb(43, 113, 174);
+}
+li a {
+
+    padding: 9px;
+    text-decoration: none;
+    color:whitesmoke;
+   
+}
+
+
+
+.userData{
+
+    color:black;
+    font-size: 15px;
+    font-weight: bold;
+}
+
