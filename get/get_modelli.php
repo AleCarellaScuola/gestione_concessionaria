@@ -34,11 +34,11 @@
 
     if (count($result) > 0) {
         foreach ($result as $row) {
-        $risp["alimentazioni"][] = $row;
+        $risp["modelli"][] = $row;
         }
         echo (json_encode($risp));
     } else {
-        $risp["alimentazioni"][] = $conn->errorInfo();
+        $risp["modelli"][] = $conn->errorInfo();
         echo json_encode($risp);
 
     }

@@ -18,7 +18,6 @@
     $acronimo_provincia = $_GET["acronimo_provincia"];
     $stmt->bindParam(":nome_provincia", $nome_provincia, PDO::PARAM_STR);
     $stmt->bindParam(":acronimo_provincia", $acronimo_provincia, PDO::PARAM_STR);
-    $stmt->execute();
     if ($stmt->execute() === TRUE) {
         echo "Provincia inserita con successo";
     } else {

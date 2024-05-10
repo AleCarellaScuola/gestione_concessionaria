@@ -20,7 +20,6 @@
     $stmt->bindParam(":id_veicolo", $id_veicolo, PDO::PARAM_INT);
     $stmt->bindParam(":id_utente", $id_utente, PDO::PARAM_INT);
     $stmt->bindParam(":data_visita", $data_visita, PDO::PARAM_STR);
-    $stmt->execute();
     if ($stmt->execute() === TRUE) {
         echo "Visita inserito con successo";
     } else {

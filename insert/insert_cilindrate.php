@@ -17,7 +17,6 @@
     $stmt = $conn->prepare($query);
     $cilindrata = $_GET["val_cilindrata"];
     $stmt->bindParam(":valore", $cilindrata, PDO::PARAM_STR);
-    $stmt->execute();
     if ($stmt->execute() === TRUE) {
         echo "Cilindrata inserita con successo";
     } else {

@@ -1,17 +1,15 @@
-.form-group{
+body {
+  background-color: #031633;
+}
 
-    padding: 15px;
-    
-   
-   
-   }
-   
-   .riquadro{
-       background-color: lightgray;
-       margin:10px;
-       border-radius: 16px;
-   }
-   
-   body.invert {
-     filter: invert(100%);
-   }
+
+.form-group {
+
+  padding: 15px;
+}
+
+.riquadro {
+
+  margin: 10px;
+  border-radius: 16px;
+}

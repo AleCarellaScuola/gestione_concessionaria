@@ -20,7 +20,6 @@
     $stmt->bindParam(":prezzo", $prezzo, PDO::PARAM_INT);
     $stmt->bindParam(":riferimento_foto", $rif_foto, PDO::PARAM_STR);
     $stmt->bindParam(":modello", $id_modello, PDO::PARAM_INT);
-    $stmt->execute();
     if ($stmt->execute() === TRUE) {
         echo "Veicolo inserito con successo";
     } else {

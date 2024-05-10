@@ -1,5 +1,6 @@
 <?php
-require "menu.php";
+    require "menu.php";
+    $_SESSION["active_page"] = "case";
 ?>
 <!doctype html>
 <html>
@@ -10,6 +11,7 @@ require "menu.php";
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="menu_style.css">
 </head>
 
 <body>
@@ -42,7 +44,7 @@ require "menu.php";
 
 
     <div id="view_data">
-        <table id="auto">
+        <table class = "table table-bordered" id="auto">
             <tr>
                 <th>Nome</th>
                 <th>P.Iva</th>
@@ -52,12 +54,12 @@ require "menu.php";
             <tr w3-repeat="case" id="val_casa" value="{{id_casa}}">
                 <td>{{nome}}</td>
                 <td>{{p_iva}}</td>
-                <td><button type="button" id="delete" onclick="delete_record()">Elimina</button></td>
-                <td><button type="button" id="modify" onclick="modify_record()">Modifica</button></td>
+                <td><button type="button" class = "btn btn-outline-danger" id="delete" onclick="delete_record()">Elimina</button></td>
+                <td><button type="button" class = "btn btn-outline-secondary" id="modify" onclick="modify_record()">Modifica</button></td>
             </tr>
         </table>
     </div>
-    <button type="button" id="insert" onclick="do_insert()">Inserisci</button>
+    <button type="button" class = "btn btn-outline-primary" id="insert" onclick="do_insert()">Inserisci</button>
 </body>
 
 </html>

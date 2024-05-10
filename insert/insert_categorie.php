@@ -16,7 +16,6 @@
     $stmt = $conn->prepare($query);
     $categoria = $_GET["descr_categoria"];
     $stmt->bindParam(":categoria", $categoria, PDO::PARAM_STR);
-    $stmt->execute();
     if ($stmt->execute() === TRUE) {
         echo "Categoria inserita con successo";
     } else {

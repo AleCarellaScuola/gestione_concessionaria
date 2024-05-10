@@ -12,9 +12,9 @@
 
 <body>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-     <div class="riquadro col col-xl-4 col-lg-4 col-md-4 col-sm-4 mx-auto">
+     <div class="riquadro col col-xl-4 col-lg-4 col-md-4 col-sm-4 mx-auto border">
          <div class="form-group">
-                <h3>Log-in</h3>
+                <h3 style="color: white;">Log-in</h3>
                 <div class="form-floating mb-3">  
                     <input type="email" class="form-control" name="rif_email" id="email" placeholder="email"><br>
                     <label for="email">E-mail</label>
@@ -23,7 +23,7 @@
                     <input type="password" class="form-control" name="rif_psw" id="psw" placeholder="password"><br>
                     <label for="psw">Password</label>
                 </div> 
-                    <button type="submit" class = "btn btn-outline-dark" id="accedi" name="send_data">Accedi</button>
+                    <button type="submit" class = "btn btn-outline-primary" id="accedi" name="send_data">Accedi</button>
                     <br>
                     <a href="sign_up_page.php">Registrati</a>
            </div>
@@ -64,16 +64,17 @@ if(isset($_POST["send_data"]))
             
                 if($row["email"] == $email_utente && password_verify($psw_utente, $row["password"]))
                 {
-                    echo "Accesso effettuato";
+                    echo "<script>alert(\"Accesso effettuato\")</script>";
                     $controllo = true;
-                    //TODO iniziare sessione e come "cookie" mettere se l'utente e' admin o meno e reinderizzarlo alla pagina menu
+                    
                     session_start();
                     $_SESSION["admin_value"] = $row["admin"];
                     $_SESSION["name"]        = $row["nome"];
                     $_SESSION["surname"]     = $row["cognome"];
                     $_SESSION["email"]       = $row["email"];
-                    //print_r($_SESSION["admin_value"]);
-                    header("refresh:2;url=management/menu.php");
+                    $_SESSION["logged_in"]   = true;
+                    $_SESSION["active_page"] = "";
+                    header("refresh:0;url=management/menu.php");
                     break;
                 }
             }
@@ -84,8 +85,8 @@ if(isset($_POST["send_data"]))
 
         if(!$controllo)
         {
-            echo "Accesso non riuscito, ritenta tra poco";
-            header("refresh:5;url=log_in_page.php");
+            echo "<script>alert(\"Accesso non riuscito, ritenta tra poco\")</script>";
+            header("refresh:0;url=log_in_page.php");
         }
     
     

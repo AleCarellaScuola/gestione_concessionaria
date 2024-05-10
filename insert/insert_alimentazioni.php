@@ -16,8 +16,6 @@
     $stmt = $conn->prepare($query);
     $alimentazione = $_GET["alimentazione"];
     $stmt->bindParam(":tipo_alimentazione", $alimentazione, PDO::PARAM_STR);
-    $stmt->execute();
-
     if ($stmt->execute() === TRUE) {
         echo "Alimentazione inserita con successo";
     } else {

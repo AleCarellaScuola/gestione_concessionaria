@@ -24,7 +24,6 @@
     $stmt->bindParam(":rif_cilindrata", $id_cilindrata, PDO::PARAM_INT);
     $stmt->bindParam(":rif_alimentazione", $id_alimentazione, PDO::PARAM_INT);
     $stmt->bindParam(":rif_categoria", $id_categoria, PDO::PARAM_INT);
-    $stmt->execute();
     if ($stmt->execute() === TRUE) {
         echo "Modello inserito con successo";
     } else {

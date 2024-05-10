@@ -18,7 +18,6 @@
     $p_iva     = $_GET["p_iva"];
     $stmt->bindParam(":nome", $nome_casa, PDO::PARAM_STR);
     $stmt->bindParam(":p_iva", $p_iva, PDO::PARAM_STR);
-    $stmt->execute();
     if ($stmt->execute() === TRUE) {
         echo "Casa automobilistica inserita con successo";
     } else {
