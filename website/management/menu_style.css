@@ -1,6 +1,8 @@
 
 
-
+body{
+    background-color: #031633;
+}
 
 .riquadro{
     background-color: lightgray;
@@ -8,7 +10,6 @@
     border-radius: 16px;
     width: 30;
 }
-
 
 
 li a:hover{

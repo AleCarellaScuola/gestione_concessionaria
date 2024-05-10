@@ -51,7 +51,7 @@
       </ul>
 
   </nav>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-light " >
     <div class="container-fluid">
 
 
@@ -77,6 +77,7 @@
       </ul>
 
   </nav>
+  <hr class="hr hr-blurry" />
 </body>
 
 </html>
