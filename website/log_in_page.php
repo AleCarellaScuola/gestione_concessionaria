@@ -74,7 +74,10 @@ if(isset($_POST["send_data"]))
                     $_SESSION["email"]       = $row["email"];
                     $_SESSION["logged_in"]   = true;
                     $_SESSION["active_page"] = "";
-                    header("refresh:0;url=management/menu.php");
+                    if($_SESSION["admin_value"] == 1)
+                        header("refresh:0;url=management/manage_cars.php");
+                    else
+                        header("refresh:0;url=management/search_cars.php");
                     break;
                 }
             }

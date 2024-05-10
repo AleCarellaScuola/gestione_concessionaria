@@ -1,8 +1,4 @@
 <?php
-  if (!array_key_exists("logged_in", $_SESSION) && !$_SESSION["logged_in"]) {
-    header("Location: ../log_in_page.php");
-    exit(0);
-  }
   function page($page_id, $page_name, $url_page)
   {
     if ($_SESSION["active_page"] === $page_id) {
@@ -85,10 +81,5 @@
 </html>
 
 <?php
-  $name_user    = $_SESSION["name"];
-  $surname_user = $_SESSION["surname"];
-  $email_user   = $_SESSION["email"];
 
-  echo "<script>$(\"#name_user\").text(\"$name_user, $surname_user\");"
-    . "$(\"#email_user\").text(\"$email_user\")</script>";
 ?>

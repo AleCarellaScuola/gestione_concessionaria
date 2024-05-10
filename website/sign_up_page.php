@@ -117,7 +117,7 @@
                 dataType: 'html',
                 success: function (risultato) {
                     alert(risultato);
-                    window.location.href = "management/menu.php";
+                    window.location.href = "management/search_cars.php";
                 },
                 error: function (error) {
                     console.log("Errore: " + error);
