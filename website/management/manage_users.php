@@ -1,7 +1,8 @@
 <?php
-    require "menu.php";
+    session_start();
     $_SESSION["active_page"] = "utenti";
-?>
+    require "menu.php";
+    ?>
 <!doctype html>
 <html>
 

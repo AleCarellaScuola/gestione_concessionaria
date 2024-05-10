@@ -1,7 +1,8 @@
-<?php
-    require "menu.php";
+<?php  
+    session_start();
     $_SESSION["active_page"] = "categorie";
-?>
+    require "menu.php";
+    ?>
 <!doctype html>
 <html>
 

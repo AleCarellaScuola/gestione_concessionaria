@@ -1,6 +1,7 @@
 <?php
-    require "menu.php";
+    session_start();
     $_SESSION["active_page"] = "case";
+    require "menu.php";
 ?>
 <!doctype html>
 <html>

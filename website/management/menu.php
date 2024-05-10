@@ -1,6 +1,4 @@
 <?php
-
-  session_start();
   if (!array_key_exists("logged_in", $_SESSION) && !$_SESSION["logged_in"]) {
     header("Location: ../log_in_page.php");
     exit(0);
@@ -8,7 +6,7 @@
   function page($page_id, $page_name, $url_page)
   {
     if ($_SESSION["active_page"] === $page_id) {
-      echo "<li class = \"nav-item\"><a style = \"color: white;\"class=\"nav-link active\" aria-current=\"page\" href=\"$url_page\">$page_name</a></li>";
+      echo "<li class = \"nav-item\"><a style = \"color: #007fff;\"class=\"nav-link active\" aria-current=\"page\" href=\"$url_page\">$page_name</a></li>";
     } else {
       echo "<li class=\"nav-item\"><a style = \"color: white;\"class=\"nav-link\" href=\"$url_page\">$page_name</a></li>";
     }
