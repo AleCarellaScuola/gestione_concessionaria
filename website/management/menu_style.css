@@ -17,6 +17,14 @@ li a:hover{
     color:whitesmoke;
     background-color: rgb(43, 113, 174);
 }
+
+.li_onclick{
+
+    text-decoration: none;
+    color:whitesmoke;
+    background-color: rgb(43, 113, 174);
+}
+
 li a {
 
     padding: 9px;

@@ -17,21 +17,31 @@
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Concessionaria AutoMondo
-        <span class="material-symbols-outlined">car_tag</span>
-      </a>
 
       
-      <ul class="nav navbar-nav mx-auto" style="display:block;">
-        <li class="nav-item userData mx-2">
+  <ul class="nav navbar-nav mx-3" style="display:block;">
+        <li class="nav-item userData">
           <span class="material-symbols-outlined">account_circle</span>
-          <div id="name_user"></div>
-          <div id="email_user"></div>
+          <div class="row">
+            <div id="name_user"></div>
+            <div id="email_user"></div>
+            
+          </div>
+         
         </li>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
+
+
+
+    <div class="container-fluid justify-content-center">
+      <a class="navbar-brand" href="#">Concessionaria AutoMondo
+        <span class="material-symbols-outlined">car_tag</span>
+      </a>
+    </div>
+
+
+      <ul class="nav navbar-nav navbar-right mx-3">
         <a href="#" data-toggle="modal" data-target="#logoutModal">
           <button type="button" class="btn btn-outline-secondary btn-sm">Logout
             <span class="material-symbols-outlined">logout</span>
@@ -45,9 +55,9 @@
     <div class="container-fluid">
 
 
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a href="manage_cars.php" id="gestisci_auto">Gestisci auto</a>
+      <ul class="navbar-nav"  id = "actions">
+        <li class="nav-item" >
+          <a href="manage_cars.php"  id="gestisci_auto">Gestisci auto</a>
         </li>
         <li class="nav-item">
           <a href="manage_houses.php" id="gestisci_case">Gestisci case automobilistiche</a>
@@ -73,16 +83,22 @@
 
 <script>
   function user_actions() {
-
-
+    $("#gestisci_case").before("<a href='search_vehicle.php' id=\"ricerca_veicolo\">Ricerca veicolo</a>");
     $("#gestisci_auto").remove();
     $("#gestisci_case").remove();
     $("#gestisci_categorie").remove();
     $("#gestisci_cilindrate").remove();
     $("#gestisci_utenti").remove();
-    $("#actions").append("<a href = \"management/search_cars.php\" id = \"ricerca_veicolo\">Ricerca veicolo</a>");
   }
+//da fixare
+ function highlight(){
+   
+  $("#actions").addClass(".li_onclick");
+ }
+
+
 </script>
+
 
 
 <?php
