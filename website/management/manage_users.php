@@ -37,6 +37,7 @@
                     </button>
                 </div>
                 <div class="modal-body" id="manage_user">
+                    <input type = "hidden" id = "val_utente">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="rif_name" id="name" placeholder="Inserisci il tuo nome">
                         <label for="name">Nome</label>
@@ -48,6 +49,10 @@
                     <div class="form-floating mb-3">
                         <input type="date" class="form-control" name="rif_birth_date" id="birth_date">
                         <label for="birth_date">Data di nascita</label>
+                    </div>
+                    <div class="form-floating mb-3" id = "data_iscrizione">
+                        <input type="date" class="form-control" name="rif_registration_date" id="registration_date">
+                        <label for="birth_date">Data di iscrizione</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="rif_address" id="address" placeholder="Inserisci il tuo indirizzo..."><br>
@@ -65,27 +70,31 @@
                         <input type="email" class="form-control" name="rif_email" id="email" placeholder="email"><br>
                         <label for="email">E-mail</label>
                     </div>
+
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" name="rif_psw" id="psw" placeholder="password"><br>
+                        <input type="email" class="form-control" name="rif_password" id="psw" placeholder="password"><br>
                         <label for="psw">Password</label>
                     </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="no_admin" checked>
-                        <label class="form-check-label">
-                            No
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="admin">
-                        <label class="form-check-label">
-                            Si
-                        </label>
+                    
+                    <div id = "admin">
+                        Admin:
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="no_admin" checked>
+                            <label class="form-check-label">
+                                No
+                            </label>
+                        </div>
+                        <div class = "form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="yes_admin">
+                            <label class="form-check-label">
+                                Si
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id = "save_change" onclick = "call_action(this.value)">Save changes</button>
+                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -106,13 +115,13 @@
                 <th>Modifica</th>
             </tr>
             <tr w3-repeat="utenti" id="val_utente" value="{{id_utente}}">
-                <td>{{nome}}</td>
-                <td>{{cognome}}</td>
-                <td>{{data_iscrizione}}</td>
-                <td>{{data_nascita}}</td>
-                <td>{{email}}</td>
-                <td>{{indirizzo}}</td>
-                <td>{{nome_provincia}}, {{acronimo}}</td>
+                <td id = "user_name">{{nome}}</td>
+                <td id = "surname_user">{{cognome}}</td>
+                <td id = "registration_date_user">{{data_iscrizione}}</td>
+                <td id = "birth_date_user">{{data_nascita}}</td>
+                <td id = "email_user">{{email}}</td>
+                <td id = "address_user">{{indirizzo}}</td>
+                <td id = "province_user">{{nome_provincia}}, {{acronimo}}</td>
                 <td><button type="button" class = "btn btn-outline-danger" id="delete" onclick="delete_record()">Elimina</button></td>
                 <td><button type="button" class = "btn btn-outline-secondary" id="modify" onclick="modify_record()">Modifica</button></td>
             </tr>
@@ -124,6 +133,13 @@
 </html>
 
 <script>
+
+    w3.getHttpObject("../../get/get_province.php", get_province);
+
+    function get_province(risultato) {
+        w3.displayObject("province", risultato);
+    }
+
     w3.getHttpObject("../../get/get_utenti.php", get_users);
 
     function get_users(risultato) {
@@ -131,66 +147,130 @@
     }
 
     function delete_record() {
-        let id_utente = $("#val_utente").attr("value");
-
-        $.ajax({
-            url: "../../delete/delete_utente.php?id_utente=" + id_utente,
-            method: 'GET',
-            dataType: 'html',
-            success: function(risultato) {
-                alert(risultato);
-                $("#view_data").empty();
-                w3.getHttpObject("../../get/get_utenti.php", get_users);
-            },
-            error: function(error) {
-                console.log("Errore: " + error);
-            }
+        $('#auto tr').on('click', function(){
+            let id_utente = $(this).attr("value");
+            $.ajax({
+                url: "../../delete/delete_utente.php?id_utente=" + id_utente,
+                method: 'GET',
+                dataType: 'html',
+                success: function(risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_utenti.php", get_users);
+                },
+                error: function(error) {
+                    console.log("Errore: " + error);
+                }
+            });
         });
     }
 
     function modify_record() {
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
         $("#action").text("Modifica utente");
-        $("#view_data").empty();
-        w3.getHttpObject("../../get/get_utenti.php", get_users);
+        $('#auto tr').on('click', function() {
+            console.log($(this).find("td#user_name").text());
+            $("#name").val($(this).find("td#user_name").text());
+            $("#surname").val($(this).find("td#surname_user").text());
+            $("#birth_date").val($(this).find("td#birth_date_user").text());
+            $("#data_iscrizione").show();
+            $("#registration_date").val($(this).find("td#registration_date_user").text());
+            $("#address").val($(this).find("td#address_user").text());
+            $("#province option:contains(" + $(this).find("td#province_user").text() + ")").attr('selected', 'selected');
+            $("#email").val($(this).find("td#email_user").text());
+            $("#psw").val("");
+            let id_utente = $(this).attr("value");
+            $("#val_utente").attr("value", id_utente);
+        });
+        $("#save_change").attr("value", "update");
     }
 
     function do_insert() {
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
         $("#action").text("Inserisci utente");
-        //TODO modify modal for insert or update and then open it
-        //TODO aggiustare i bottoni dei modal'
-        //TODO creare le pagine php per le update
-        //TODO quando l'utente deve modificare, il modal deve visualizzare i valori gia' presenti nella riga dell'utente
-        //TODO insert with admin value
-        
-        /*let first_name = $("#name").val();
-        let last_name  = $("#surname").val();
-        let birth_date = $("#birth_date").val();
-        let address    = $("#address").val();
-        let provincia  = $("#province option:selected").val();
-        let email      = $("#email").val();
-        let password   = $("#psw").val();
-        let admin      = $("#admin").val();
-        
-        $.ajax({
-            url: "../../insert/insert_utenti.php?nome_utente="     + first_name
-            + "&cognome_utente="                                   + last_name
-            + "&data_nascita="                                     + birth_date
-            + "&indirizzo_utente="                                 + address
-            + "&email_utente="                                     + email
-            + "&psw_utente="                                       + password
-            + "&provincia_utente="                                 + provincia,
-            method: 'GET',
-            dataType: 'html',
-            success: function (risultato) {
-                alert(risultato);
-                $("#view_data").empty();
-                w3.getHttpObject("../../get/get_utenti.php", get_users);
-            },
-            error: function (error) {
-                console.log("Errore: " + error);
-            }
-        });*/
+        $("#name").val("");
+        $("#surname").val("");
+        $("#birth_date").val("");
+        $("#data_iscrizione").hide();
+        $("#address").val("");
+        $("#province option:contains(Seleziona la provincia)").val("selected", "selected");
+        $("#email").val("");
+        $("#psw").val("");
+        $("#save_change").attr("value", "insert");
+        //TODO aggiustare i bottoni dei modal
     }
+
+    //TODO sistemare meglio la questione della psw
+
+    function call_action(id_action)
+    {
+        if(id_action == "insert")
+        {
+            let first_name = $("#name").val();
+            let last_name  = $("#surname").val();
+            let birth_date = $("#birth_date").val();
+            let address    = $("#address").val();
+            let provincia  = $("#province option:selected").val();
+            let email      = $("#email").val();
+            let password   = $("#psw").val();
+            let admin      = $("#yes_admin").is(":checked") ? 1 : 0;
+           
+            $.ajax({
+                url: "../../insert/insert_utenti.php?nome_utente="     + first_name
+                + "&cognome_utente="                                   + last_name
+                + "&data_nascita="                                     + birth_date
+                + "&indirizzo_utente="                                 + address
+                + "&email_utente="                                     + email
+                + "&psw_utente="                                       + password
+                + "&admin="                                            + admin
+                + "&provincia_utente="                                 + provincia,
+                method: 'GET',
+                dataType: 'html',
+                success: function (risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_utenti.php", get_users);
+                },
+                error: function (error) {
+                    console.log("Errore: " + error);
+                }
+            });
+        } else if (id_action == "update")
+        {
+            let first_name = $("#name").val();
+            let last_name  = $("#surname").val();
+            let birth_date = $("#birth_date").val();
+            let reg_date   = $("#registration_date").val();
+            let address    = $("#address").val();
+            let provincia  = $("#province option:selected").val();
+            let email      = $("#email").val();
+            let password   = $("#psw").val();
+            let id_utente  = $("#val_utente").attr("value");
+            let admin      = $("#yes_admin").is(":checked") ? 1 : 0;
+            
+            $.ajax({
+                url: "../../update/update_user.php?nome_utente=" + first_name
+                + "&cognome_utente="                             + last_name
+                + "&data_nascita="                               + birth_date
+                + "&data_iscrizione="                            + reg_date
+                + "&indirizzo="                                  + address
+                + "&email="                                      + email
+                + "&psw="                                        + password
+                + "&admin="                                      + admin
+                + "&id_provincia="                               + provincia
+                + "&id_utente="                                  + id_utente,
+                method: 'GET',
+                dataType: 'html',
+                success: function (risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_utenti.php", get_users);
+                },
+                error: function (error) {
+                    console.log("Errore: " + error);
+                }
+            });
+        }
+    }
+
 </script>

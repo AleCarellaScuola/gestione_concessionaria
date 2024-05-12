@@ -29,7 +29,7 @@
 
 <body>
     <div id = "view_data">
-        <table id = "auto" class = "table table-bordered ">
+        <table id = "auto" class = "table table-hover">
         <tr>
             <th>Casa produttrice</th>
             <th>Nome modello</th>
@@ -38,7 +38,7 @@
             <th>Categoria</th>
             <th>Prezzo</th>
             <th>Veicolo</th>
-            </tr>
+        </tr>
             <tr w3-repeat="modelli_veicoli">
             <td>{{casa_produttrice}}</td>
             <td>{{nome_modello}}</td>
@@ -46,12 +46,12 @@
             <td>{{alimentazione}}</td>
             <td>{{descrizione}}</td>
             <td>{{prezzo}}</td>
-            <td><img src = "../../vehicle_photos/{{riferimento}}" class = "mx-auto d-block img-fluid" width="150px" height="150px"></td>
-            <td><button class = "btn btn-outline-danger" type = "button" id = "delete">Elimina</button></td>
-            <td><button class = "btn btn-outline-secondary" type = "button" id = "modify">Modifica</button></td>
+            <td><img src = "../../vehicle_photos/{{riferimento}}" class = "img-fluid" width="150px" height="150px"></td>
+            <td><button class = "btn btn-outline-danger" type = "button" id = "delete" onclick = "delete_record()">Elimina</button></td>
+            <td><button class = "btn btn-outline-secondary" type = "button" id = "modify" onclick = "modify_record()">Modifica</button></td>
             </tr>
         </table>
-        <button class = "btn btn-outline-primary" type = "button" id = "insert">Inserisci</button>
+        <button class = "btn btn-outline-primary" type = "button" id = "insert" onclick = "do_insert()">Inserisci</button>
     </div>
 </body>
 </html>
@@ -66,6 +66,7 @@
     }
     //TODO prendere id del veicolo e id del modello e poi cancellare entrambi oppure capire se cancellare solo il veicolo e non il modello
     function delete_record() {
+        //TODO delete vehicle
         let id_casa = $("#val_casa").attr("value");
 
         $.ajax({
@@ -84,13 +85,16 @@
     }
 
     function modify_record() {
+        //TODO modify cars
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
         $("#action").text("Modifica veicolo");
+        
         $("#view_data").empty();
         w3.getHttpObject("../../get/get_complete_vehicle.php", get_vehicle);
     }
 
     function do_insert() {
+        //TODO insert vehicle
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
         $("#action").text("Inserisci veicolo");
         //TODO modify modal for insert or update and then open it

@@ -16,7 +16,6 @@
     $stmt = $conn->prepare($query);
     $id_casa = $_GET["id_casa"];
     $stmt->bindParam(":id_casa", $id_casa, PDO::PARAM_INT);
-    $stmt->execute();
 
 
     if ($stmt->execute() === TRUE) {

@@ -16,7 +16,6 @@
     $stmt = $conn->prepare($query);
     $id_alimentazione = $_GET["id_alimentazione"];
     $stmt->bindParam(":id_alimentazione", $id_alimentazione, PDO::PARAM_INT);
-    $stmt->execute();
 
 
     if ($stmt->execute() === TRUE) {

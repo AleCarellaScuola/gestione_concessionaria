@@ -10,7 +10,7 @@
     // comando SQL  
     $query = "
                 SELECT
-                    Concessionaria_categorie.descrizione
+                    Concessionaria_categorie.id_categoria, Concessionaria_categorie.descrizione
                 FROM
                     Concessionaria_categorie";
     $stmt = $conn->query($query, PDO::FETCH_ASSOC);

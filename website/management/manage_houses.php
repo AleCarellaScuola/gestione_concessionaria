@@ -37,17 +37,18 @@
                     </button>
                 </div>
                 <div class="modal-body" id="manage_user">
+                    <input type = "hidden" id = "val_casa">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="rif_name" id="name" placeholder="Inserisci il  nome">
                         <label for="name">Nome</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="rif_surname" id="surname" placeholder="Inserisci la partita iva">
+                        <input type="text" class="form-control" name="rif_surname" id="p_iva" placeholder="Inserisci la partita iva">
                         <label for="surname">P. Iva</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id = "save_change" onclick = "call_action(this.value)">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -64,8 +65,8 @@
                 <th>Modifica</th>
             </tr>
             <tr w3-repeat="case" id="val_casa" value="{{id_casa}}">
-                <td>{{nome}}</td>
-                <td>{{p_iva}}</td>
+                <td id = "nome_casa">{{nome}}</td>
+                <td id = "p_iva_casa">{{p_iva}}</td>
                 <td><button type="button" class = "btn btn-outline-danger" id="delete" onclick="delete_record()">Elimina</button></td>
                 <td><button type="button" class = "btn btn-outline-secondary" id="modify" onclick="modify_record()">Modifica</button></td>
             </tr>
@@ -84,55 +85,92 @@
     }
 
     function delete_record() {
-        let id_casa = $("#val_casa").attr("value");
-
-        $.ajax({
-            url: "../../delete/delete_casa.php?id_casa=" + id_casa,
-            method: 'GET',
-            dataType: 'html',
-            success: function(risultato) {
-                alert(risultato);
-                $("#view_data").empty();
-                w3.getHttpObject("../../get/get_case.php", get_case);
-            },
-            error: function(error) {
-                console.log("Errore: " + error);
-            }
+        $('#auto tr').on('click', function(){
+            let id_casa = $(this).attr("value");
+            $.ajax({
+                url: "../../delete/delete_casa.php?id_casa=" + id_casa,
+                method: 'GET',
+                dataType: 'html',
+                success: function(risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_case.php", get_case);
+                    return;
+                },
+                error: function(error) {
+                    console.log("Errore: " + error);
+                    return;
+                }
+            });
         });
+        
     }
 
     function modify_record() {
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
         $("#action").text("Modifica casa automobilistica");
-        $("#view_data").empty();
-        w3.getHttpObject("../../get/get_case.php", get_case);
+        $('#auto tr').on('click', function() {
+            $("#name").val($(this).find("td#nome_casa").text());
+            $("#p_iva").val($(this).find("td#p_iva_casa").text());
+            let id_casa = $(this).attr("value");
+            $("#val_casa").attr("value", id_casa);
+        });
+        $("#save_change").attr("value", "update");
     }
 
     function do_insert() {
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
+        $("#name").val("");
+        $("#p_iva").val("");
         $("#action").text("Inserisci casa automobilistica");
-        //TODO modify modal for insert or update and then open it
+        $("#save_change").attr("value", "insert");
         //TODO aggiustare i bottoni dei modal'
-        //TODO creare le pagine php per le update
-        //TODO quando l'utente deve modificare, il modal deve visualizzare i valori gia' presenti nella riga dell'utente
-        //TODO insert with admin value
         
-        let name   = $("#name").val();
-        let p_iva  = $("#surname").val();
-        
-        $.ajax({
-            url: "../../insert/insert_case.php?nome_casa="     + name
-            + "&p_iva="                                        + p_iva,
-            method: 'GET',
-            dataType: 'html',
-            success: function (risultato) {
-                alert(risultato);
-                $("#view_data").empty();
-                w3.getHttpObject("../../get/get_case.php", get_case);
-            },
-            error: function (error) {
-                console.log("Errore: " + error);
-            }
-        });
+    }
+
+    function call_action(id_action) 
+    {  
+        if(id_action == "insert")
+        {
+            let name   = $("#name").val();
+            let p_iva  = $("#p_iva").val();
+            $.ajax({
+                url: "../../insert/insert_case.php?nome_casa="     + name
+                + "&p_iva="                                        + p_iva,
+                method: 'GET',
+                dataType: 'html',
+                success: function (risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_case.php", get_case);
+                    return;
+                },
+                error: function (error) {
+                    console.log("Errore: " + error);
+                    return;
+                }
+            });
+        } else if (id_action == "update")
+        {
+            let nome_casa = $("#name").val();
+            let p_iva     = $("#p_iva").val();
+            let id_casa   = $("#val_casa").attr("value");
+            console.log(id_casa);
+            $.ajax({
+                url: "../../update/update_house.php?nome_casa=" + nome_casa
+                    + "&p_iva_casa="                            + p_iva
+                    + "&id_casa="                               + id_casa,
+                method: 'GET',
+                dataType: 'html',
+                success: function(risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_case.php", get_case);
+                },
+                error: function(error) {
+                    alert("Errore: " + error);
+                }
+            });
+        }
     }
 </script>

@@ -37,14 +37,15 @@
                     </button>
                 </div>
                 <div class="modal-body" id="manage_user">
+                    <input type = "hidden" id = "val_cilindrata">
                     <div class="form-floating mb-3">
                         <input type="number" class="form-control" name="rif_name" id="cilindrata" placeholder="Inserisci il valore della cilindrata">
                         <label for="cilindrata">Valore</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id = "save_change" onclick = "call_action(this.value)">Save changes</button>
+                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -57,13 +58,13 @@
             <th>Modifica</th>
             </tr>
             <tr w3-repeat="cilindrate" id = "val_cilindrata" value = "{{id_cilindrata}}">
-            <td>{{valore}}</td>
+            <td id = "valore_cilindrata">{{valore}}</td>
             <td><button class = "btn btn-outline-danger" type = "button" id = "delete" onclick = "delete_record()">Elimina</button></td>
             <td><button class = "btn btn-outline-secondary" type = "button" id = "modify" onclick = "modify_record()">Modifica</button></td>
             </tr>
         </table>
     </div>
-    <button class = "btn btn-outline-primary" type = "button" id = "insert">Inserisci</button>
+    <button class = "btn btn-outline-primary" type = "button" id = "insert" onclick = "do_insert()">Inserisci</button>
 </body>
 </html>
 
@@ -75,52 +76,79 @@
     }
 
     function delete_record() {
-        let id_cilindrata = $("#val_cilindrata").attr("value");
-
-        $.ajax({
-            url: "../../delete/delete_cilindrata.php?id_cilindrata=" + id_cilindrata,
-            method: 'GET',
-            dataType: 'html',
-            success: function(risultato) {
-                alert(risultato);
-                $("#view_data").empty();
-                w3.getHttpObject("../../get/get_cilindrate.php", get_cilindrata);
-            },
-            error: function(error) {
-                console.log("Errore: " + error);
-            }
+        $('#auto tr').on('click', function(){
+            let id_cilindrata = $(this).attr("value");
+            $.ajax({
+                url: "../../delete/delete_cilindrata.php?id_cilindrata=" + id_cilindrata,
+                method: 'GET',
+                dataType: 'html',
+                success: function(risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_cilindrate.php", get_cilindrata);
+                },
+                error: function(error) {
+                    console.log("Errore: " + error);
+                }
+            });
         });
-    }
+    }       
 
     function modify_record() {
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
         $("#action").text("Modifica cilindrata");
-        $("#view_data").empty();
-        w3.getHttpObject("../../get/get_cilindrate.php", get_cilindrata);
+        $('#auto tr').on('click', function() {
+            $("#cilindrata").val($(this).find("td#valore_cilindrata").text());
+            let id_cilindrata = $(this).attr("value");
+            $("#val_cilindrata").attr("value", id_cilindrata);
+        });
+        $("#save_change").attr("value", "update");
     }
 
     function do_insert() {
+        //TODO buttons modal
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
         $("#action").text("Inserisci cilindrata");
-        //TODO modify modal for insert or update and then open it
-        //TODO aggiustare i bottoni dei modal'
-        //TODO creare le pagine php per le update
-        //TODO quando l'utente deve modificare, il modal deve visualizzare i valori gia' presenti nella riga dell'utente
-        //TODO insert with admin value
-        
-        let valore = $("#cilindrata").val();        
-        $.ajax({
-            url: "../../insert/insert_cilindrate.php?val_cilindrata=" + valore,
-            method: 'GET',
-            dataType: 'html',
-            success: function (risultato) {
-                alert(risultato);
-                $("#view_data").empty();
-                w3.getHttpObject("../../get/get_cilindrate.php", get_cilindrata);
-            },
-            error: function (error) {
-                console.log("Errore: " + error);
-            }
-        });
+        $("#cilindrata").val("");
+        $("#save_change").attr("value", "insert");
+    }
+
+    function call_action(id_action)
+    {
+        if(id_action == "insert")
+        {
+            let valore = $("#cilindrata").val();        
+            $.ajax({
+                url: "../../insert/insert_cilindrate.php?val_cilindrata=" + valore,
+                method: 'GET',
+                dataType: 'html',
+                success: function (risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_cilindrate.php", get_cilindrata);
+                },
+                error: function (error) {
+                    console.log("Errore: " + error);
+                }
+            });
+        } else if (id_action == "update")
+        {
+            let valore        = $("#cilindrata").val();
+            let id_cilindrata = $("#val_cilindrata").attr("value");
+            $.ajax({
+                url: "../../update/update_displacement.php?valore_cilindrata=" + valore
+                    + "&id_cilindrata="                                        + id_cilindrata,
+                method: 'GET',
+                dataType: 'html',
+                success: function(risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_cilindrate.php", get_cilindrata);
+                },
+                error: function(error) {
+                    alert("Errore: " + error);
+                }
+            });
+        }
     }
 </script>

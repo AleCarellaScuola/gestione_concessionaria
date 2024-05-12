@@ -16,7 +16,6 @@
     $stmt = $conn->prepare($query);
     $id_categoria = $_GET["id_categoria"];
     $stmt->bindParam(":id_categoria", $id_categoria, PDO::PARAM_INT);
-    $stmt->execute();
 
 
     if ($stmt->execute() === TRUE) {

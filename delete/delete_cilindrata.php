@@ -16,7 +16,6 @@
     $stmt = $conn->prepare($query);
     $id_cilindrata = $_GET["id_cilindrata"];
     $stmt->bindParam(":id_cilindrata", $id_cilindrata, PDO::PARAM_INT);
-    $stmt->execute();
 
 
     if ($stmt->execute() === TRUE) {
