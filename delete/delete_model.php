@@ -9,17 +9,17 @@
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // comando SQL  
     $query = "DELETE FROM
-                Concessionaria_Veicoli
+                Concessionaria_Modelli
               WHERE 
-                Concessionaria_Veicoli.id_veicolo = :id_veicolo";
+                Concessionaria_Modelli.id_modello = :id_modello";
 
     $stmt = $conn->prepare($query);
-    $id_veicolo = $_GET["id_veicolo"];
-    $stmt->bindParam(":id_veicolo", $id_veicolo, PDO::PARAM_INT);
+    $id_modello = $_GET["id_modello"];
+    $stmt->bindParam(":id_modello", $id_modello, PDO::PARAM_INT);
 
 
     if ($stmt->execute() === TRUE) {
-        echo "Veicolo eliminato con successo";
+        echo "Modello eliminato con successo";
     } else {
         echo "Errore!";
 

@@ -10,12 +10,13 @@
     // comando SQL  
     $query = "
                 SELECT
+                    Concessionaria_modelli.id_modello,
                     Concessionaria_modelli.nome AS nome_modello, 
                     Concessionaria_case_automobilistiche.nome AS casa_produttrice,
                     Concessionaria_cilindrate.valore,
                     Concessionaria_alimentazioni.nome AS alimentazione,
                     Concessionaria_categorie.descrizione,
-                    Concessionaria_veicoli.prezzo, Concessionaria_veicoli.riferimento
+                    Concessionaria_veicoli.prezzo, Concessionaria_veicoli.riferimento, Concessionaria_veicoli.id_veicolo
                 FROM
                     Concessionaria_modelli
                 JOIN

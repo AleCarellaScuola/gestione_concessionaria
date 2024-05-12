@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" name="rif_password" id="psw" placeholder="password"><br>
+                        <input type="password" class="form-control" name="rif_password" id="psw" placeholder="password"><br>
                         <label for="psw">Password</label>
                     </div>
                     
