@@ -1,5 +1,5 @@
 <?php  
-    
+ 
     $data     = json_decode(file_get_contents("../config.json"), true);
     $host     = $data['host'];
     $password = $data['password'];
@@ -31,8 +31,6 @@
         echo json_encode($risp);
 
     }
-
-    
 
     $conn   = null;
     $result = null;

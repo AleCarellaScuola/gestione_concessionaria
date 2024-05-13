@@ -20,7 +20,7 @@
         foreach ($result as $row) {
         $risp["province"][] = $row;
         }
-        echo (json_encode($risp));
+        echo(json_encode($risp));
     } else {
         $risp["province"][] = $conn->errorInfo();
         echo json_encode($risp);

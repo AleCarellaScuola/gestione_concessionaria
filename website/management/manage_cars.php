@@ -32,12 +32,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="action"></h5>
+                    <h5 class="modal-title" id="action_model"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                < class="modal-body" id="manage_model">
+                <div class="modal-body" id="manage_model">
                     <input type = "hidden" id = "val_model">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="rif_name" id="name" placeholder="Inserisci il nome del modello">
@@ -80,7 +80,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="action"></h5>
+                    <h5 class="modal-title" id="action_vehicle"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -91,7 +91,7 @@
                         <select id="modelli" class="form-select">
                             <option selected>Seleziona il modello</option>
                             <option w3-repeat="modelli" name="rif_modello" value="{{id_modello}}">{{nome_modello}} {{nome_casa_automobilistica}}, {{valore}}, {{alimentazione}}, {{descrizione}}</option>
-                            <option id = "add_model">Aggiungi modello</option>
+                            <option id = "add_model"  onclick = "open_modal_for_model()">Aggiungi modello</option>
                         </select>
                     </div>
                     <div class="form-floating mb-3">
@@ -128,13 +128,13 @@
             <th>Veicolo</th>
         </tr>
             <tr w3-repeat="modelli_veicoli">
-            <td>{{casa_produttrice}}</td>
-            <td>{{nome_modello}}</td>
-            <td>{{valore}}</td>
-            <td>{{alimentazione}}</td>
-            <td>{{descrizione}}</td>
-            <td>{{prezzo}}</td>
-            <td id = "rif_veicolo" value = "{{id_veicolo}}"><img src = "../../vehicle_photos/{{riferimento}}" class = "img-fluid" width="150px" height="150px"></td>
+            <td id = "casa_veicolo">{{casa_produttrice}}</td>
+            <td id = "rif_modello">{{nome_modello}}</td>
+            <td id = "cilindrata_veicolo">{{valore}}</td>
+            <td id = "alimentazione_veicolo">{{alimentazione}}</td>
+            <td id = "categoria_veicolo">{{descrizione}}</td>
+            <td id = "prezzo_veicolo">{{prezzo}}</td>
+            <td id = "rif_veicolo" value = "{{id_veicolo}}"><img src = "../../vehicle_photos/{{riferimento}}" id = "photo_vehicle" class = "img-fluid" width="150px" height="150px"></td>
             <td><button class = "btn btn-outline-danger" type = "button" id = "delete" onclick = "delete_record()">Elimina</button></td>
             <td><button class = "btn btn-outline-secondary" type = "button" id = "modify" onclick = "modify_record()">Modifica</button></td>
             </tr>
@@ -149,6 +149,7 @@
         var image = document.getElementById('uploaded_image');
         image.src = URL.createObjectURL(event.target.files[0]);
     };
+
     w3.getHttpObject("../../get/get_complete_vehicle.php", get_vehicle);
 
     function get_vehicle(risultato)
@@ -163,7 +164,6 @@
         w3.displayObject("modelli", risultato);
     }
     
-    //TODO capire se bisogna cancellare solo il veicolo o anche il modello
     function delete_record() {
         $("#auto tr").on('click', function() {
             let id_veicolo = $(this).find("td#rif_veicolo").attr("value");
@@ -187,7 +187,15 @@
     function modify_record() {
         //TODO modify cars
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).show();
-        $("#action").text("Modifica veicolo");
+        $("#action_vehicle").text("Modifica veicolo");
+        $('#auto tr').on('click', function() {
+            $("#modelli option:contains(" + $(this).find("td#rif_modello").text() + ")").attr('selected', 'selected');
+            $("#price").val($(this).find("td#prezzo_veicolo").text());
+            let id_categoria = $(this).attr("value");
+            $("#val_categoria").attr("value", id_categoria);
+            $("#uploaded_image").attr("src", $(this).find("img#photo_vehicle").attr("src"));
+        });
+        $("#save_change_vehicle").attr("value", "update");
         //TODO per la questione della modifica far modificare il veicolo cambiando foto o prezzo o modello, se vuole modificare il modello allora farne creare uno nuovo o fargli scegliere se cambiare il modello a tutti i veicoli associati ad esso
         
         //$("#view_data").empty();
@@ -195,29 +203,77 @@
     }
 
     function do_insert() {
-        //TODO insert vehicle
-        bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
-        $("#action").text("Inserisci veicolo");
         //TODO aggiustare i bottoni dei modal'
-        
         //TODO per la questione dell'inserimento, far inserire la foto del veicolo e il prezzo e fargli scegliere fra un modello esistente o altrimenti aggiungerne uno nuovo tramite modal
-        let name   = $("#name").val();
-        let p_iva  = $("#surname").val();
+        bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).show();
+        $("#action_vehicle").text("Inserisci veicolo");
+        $("#modelli option:contains(Seleziona il modello)").attr('selected', 'selected');
+        $("#price").val($(this).find("td#prezzo_veicolo").text());
+        let id_categoria = $(this).attr("value");
+        $("#val_categoria").attr("value", id_categoria);
+        $("#uploaded_image").attr("src", $(this).find("img#photo_vehicle").attr("src"));
+        $("#save_change_vehicle").attr("value", "insert");        
+    }
+    
+    function call_action_vehicle(action)
+    {
         
-        /*$.ajax({
-            url: "../../insert/insert_case.php?nome_casa="     + name
-            + "&p_iva="                                        + p_iva,
-            method: 'GET',
-            dataType: 'html',
-            success: function (risultato) {
-                alert(risultato);
-                $("#view_data").empty();
-                w3.getHttpObject("../../get/get_case.php", get_case);
-            },
-            error: function (error) {
-                console.log("Errore: " + error);
-            }
-        });*/
+        if(action === "insert")
+        {
+            let prezzo     = $("#price").val();
+            let src_photo  = $("#photo_vehicle").val().split('\\').pop();
+            let id_modello = $("#modelli option:selected").val();   
+            
+            $.ajax({
+                url: "../../insert/insert_veicoli.php?prezzo_veicolo=" + prezzo
+                + "&rif_foto="                                         + src_photo
+                + "&id_modello="                                       + id_modello,
+                method: 'GET',
+                dataType: 'html',
+                success: function (risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_complete_vehicle.php", get_vehicle);
+                },
+                error: function (error) {
+                    console.log("Errore: " + error);
+                }
+            });
+       } else if (action === "update")
+       {
+            let prezzo     = $("#price").val();
+            let src_photo  = $("#photo_vehicle").val().split('\\').pop();
+            let id_modello = $("#modelli option:selected").val();   
+            let id_veicolo = $("#rif_veicolo").attr("value");
+            let name_photo = $("#uploaded_image").attr("src").split("../../vehicle_photos/").pop();
+            console.log(src_photo);
+            console.log(name_photo);
+            //TODO problem with filename                
+            /*$.ajax({
+                url: "../../insert/insert_veicoli.php?prezzo_veicolo=" + prezzo
+                + "&rif_foto="                                         + src_photo
+                + "&id_modello="                                       + id_modello,
+                method: 'GET',
+                dataType: 'html',
+                success: function (risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_complete_vehicle.php", get_vehicle);
+                },
+                error: function (error) {
+                    console.log("Errore: " + error);
+                }
+            });*/
+       }
+    }
+    
+    //TODO open modal onclick select
+    function open_modal_for_model()
+    {} 
+    
+    function call_action_model(action)
+    {
+    
     }
 </script>
 

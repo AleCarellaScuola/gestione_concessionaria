@@ -10,6 +10,7 @@
     // comando SQL  
     $query = "
                 SELECT
+                    Concessionaria_modelli.id_modello,
                     Concessionaria_modelli.nome AS nome_modello, 
                     Concessionaria_case_automobilistiche.nome AS nome_casa_automobilistica,
                     Concessionaria_cilindrate.valore,
