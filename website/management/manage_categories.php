@@ -32,9 +32,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="action"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body" id="manage_user">
                     <input type = "hidden" id = "val_categoria">
@@ -69,8 +66,11 @@
 </html>
 
 <script>
-    w3.getHttpObject("../../get/get_categorie.php", get_categoria);
+    $("#close").on('click', function() {
+        bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).hide();
+    });
 
+    w3.getHttpObject("../../get/get_categorie.php", get_categoria);
     function get_categoria(risultato) {
         w3.displayObject("view_data", risultato);
     }
@@ -110,7 +110,6 @@
         $("#action").text("Inserisci categoria");
         $("#categoria").val("");
         $("#save_change").attr("value", "insert");
-        //TODO aggiustare i bottoni dei modal'
     }
 
     function call_action(id_action)

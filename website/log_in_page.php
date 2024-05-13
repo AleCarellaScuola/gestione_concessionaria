@@ -25,6 +25,7 @@
                 </div> 
                     <button type="submit" class = "btn btn-outline-primary" id="accedi" name="send_data">Accedi</button>
                     <br>
+                    <label class = "form-label text-primary"style = "color: white;">Non sei ancora registrato? </label>
                     <a href="sign_up_page.php">Registrati</a>
            </div>
         </div>

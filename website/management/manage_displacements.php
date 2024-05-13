@@ -32,9 +32,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="action"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body" id="manage_user">
                     <input type = "hidden" id = "val_cilindrata">
@@ -69,6 +66,10 @@
 </html>
 
 <script>
+    $("#close").on('click', function() {
+        bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).hide();
+    });
+
     w3.getHttpObject("../../get/get_cilindrate.php", get_cilindrata);
 
     function get_cilindrata(risultato) {
@@ -106,7 +107,6 @@
     }
 
     function do_insert() {
-        //TODO buttons modal
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).show();
         $("#action").text("Inserisci cilindrata");
         $("#cilindrata").val("");

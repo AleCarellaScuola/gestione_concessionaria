@@ -9,7 +9,7 @@
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // comando SQL  
     $query = "SELECT
-                    Concessionaria_alimentazioni.nome
+                    Concessionaria_alimentazioni.id_alimentazione, Concessionaria_alimentazioni.nome
               FROM
                     Concessionaria_alimentazioni";
     $stmt = $conn->query($query, PDO::FETCH_ASSOC);

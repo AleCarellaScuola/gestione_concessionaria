@@ -32,9 +32,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="action"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body" id="manage_user">
                     <input type = "hidden" id = "val_casa">
@@ -49,7 +46,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id = "save_change" onclick = "call_action(this.value)">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -78,6 +75,10 @@
 </html>
 
 <script>
+    $("#close").on('click', function() {
+        bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).hide();
+    });
+
     w3.getHttpObject("../../get/get_case.php", get_case);
 
     function get_case(risultato) {
@@ -124,8 +125,6 @@
         $("#p_iva").val("");
         $("#action").text("Inserisci casa automobilistica");
         $("#save_change").attr("value", "insert");
-        //TODO aggiustare i bottoni dei modal'
-        
     }
 
     function call_action(id_action) 

@@ -71,6 +71,7 @@
           page("cilindrate", "Gestisci cilindrate", "manage_displacements.php");
           page("case", "Gestisci case", "manage_houses.php");
           page("utenti", "Gestisci utenti", "manage_users.php");
+          page("modelli", "Gestisci modelli", "manage_model.php");
         }
         ?>
       </ul>

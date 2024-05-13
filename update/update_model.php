@@ -20,11 +20,11 @@
                 ";
 
     $stmt = $conn->prepare($query);
-    $nome             = $_GET["nome_modello"];
-    $id_casa          = $_GET["id_casa"];
-    $id_alimentazione = $_GET["id_alimentazione"];
-    $id_categoria     = $_GET["id_categoria"];
-    $id_cilindrata    = $_GET["id_cilindrata"];
+    $nome             = $_GET["rif_modello"];
+    $id_casa          = $_GET["rif_casa"];
+    $id_alimentazione = $_GET["rif_alimentazione"];
+    $id_categoria     = $_GET["rif_categoria"];
+    $id_cilindrata    = $_GET["rif_cilindrata"];
     $id_modello       = $_GET["id_modello"];
     $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
     $stmt->bindParam(":id_casa", $id_casa, PDO::PARAM_INT);

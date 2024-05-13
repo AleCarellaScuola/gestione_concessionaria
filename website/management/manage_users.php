@@ -32,9 +32,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="action"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body" id="manage_user">
                     <input type = "hidden" id = "val_utente">
@@ -134,6 +131,10 @@
 
 <script>
 
+    $("#close").on('click', function() {
+        bootstrap.Modal.getOrCreateInstance(document.querySelector("#prova-modal")).hide();
+    });
+
     w3.getHttpObject("../../get/get_province.php", get_province);
 
     function get_province(risultato) {
@@ -193,14 +194,11 @@
         $("#birth_date").val("");
         $("#data_iscrizione").hide();
         $("#address").val("");
-        $("#province option:contains(Seleziona la provincia)").val("selected", "selected");
+        $("#province option:contains(Seleziona la provincia)").prop("selected", true);
         $("#email").val("");
         $("#psw").val("");
         $("#save_change").attr("value", "insert");
-        //TODO aggiustare i bottoni dei modal
     }
-
-    //TODO sistemare meglio la questione della psw
 
     function call_action(id_action)
     {
