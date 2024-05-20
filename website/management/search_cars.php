@@ -1,3 +1,4 @@
+
 <?php
     //TODO search_cars
     session_start();
@@ -37,29 +38,27 @@
                 </div>
                 <div class="modal-body" id="manage_vehicle">
                     <input type = "hidden" id = "val_vehicle">
-                    <div class = "form-floating mb-3">
-                        <select id="modelli" class="form-select" onchange = "open_modal_for_model(this.value)">
-                            <option selected>Seleziona il modello</option>
-                            <option w3-repeat="modelli" name="rif_modello" value="{{id_modello}}">{{nome_modello}} {{nome_casa_automobilistica}}, {{valore}}, {{alimentazione}}, {{descrizione}}</option>
-                            <option id = "add_model" value = "add">Aggiungi modello</option>
-                        </select>
+                    <div class = "form-floating mb-3"> 
+                        <figure class="figure">
+                            <img src="..." class="figure-img img-fluid rounded" id = "get_vehicle">
+                            <figcaption class="figure-caption" id = "modello_e_nome_veicolo"></figcaption>
+                        </figure>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="number" class="form-control" name="rif_price" id="price" placeholder="Inserisci il prezzo">
-                        <label for="price">Prezzo</label>
-                    </div>
-                    <div class="mb-3">
-                        <label for="photo_vehicle" class = "form-label">Inserisci la foto del veicolo</label>
-                        <input class="form-control" type="file" id="photo_vehicle" name = "send_photo" onchange = "loadFile(event)" >
-                    </div>
-                    <div class = "mb-3">
-                        <label for = "photo_vehicle" style = "cursor: pointer" class = "form-label">Immagine caricata:</label>
-                        <img id = "uploaded_image" class = "img-fluid">
-                    </div>
-                    </div>
-                    <div class="modal-footer">
+                    <p>
+                        <label class = "form-label" id = "prezzo">Prezzo: €</label>
+                    </p>
+                    <p>
+                        <label class = "form-label" id = "cilindrata">Cilindrata: </label>
+                    </p>
+                    <p>
+                        <label class = "form-label" id = "categoria">Categoria: </label>
+                    </p>
+                    <p>
+                        <label class = "form-label" id = "alimentazione">Alimentazione: </label>
+                    </p>
+                    <p class="modal-footer">
                         <button type="button" class="btn btn-secondary" id = "close_vehicle" data-dismiss="modal">Close</button>
-                    </div>
+                    </p>
                 </div>
             </div>
         </div>
@@ -71,20 +70,20 @@
                 <th>Casa produttrice</th>
                 <th>Nome modello</th>
                 <th>Veicolo</th>
-                <th id = "cilindrata">Cilindrata</th>
-                <th id = "alimentazione">Alimentazione</th>
-                <th id = "categoria">Categoria</th>
-                <th id = "prezzo">Prezzo</th>
+                <th hidden>Cilindrata</th>
+                <th hidden>Alimentazione</th>
+                <th hidden>Categoria</th>
+                <th hidden>Prezzo</th>
             </tr>
             <tr w3-repeat="modelli_veicoli">
                 <td id = "casa_veicolo">{{casa_produttrice}}</td>
                 <td id = "rif_modello">{{nome_modello}}</td>
                 <td id = "rif_veicolo" value = "{{id_veicolo}}"><img src = "..\..\vehicle_photos\{{riferimento}}" id = "photo" class = "img-fluid" width="150px" height="150px"></td>
-                <td id = "cilindrata_veicolo">{{valore}}</td>
-                <td id = "alimentazione_veicolo">{{alimentazione}}</td>
-                <td id = "categoria_veicolo">{{descrizione}}</td>
-                <td id = "prezzo_veicolo">{{prezzo}}</td>
-                <td id = "see_vehicle"><button class = "btn btn-outline-info" type = "button" id = "see_more" onclick = "see_vehicle_data()">Espandi</button></td>
+                <td id = "cilindrata_veicolo" hidden>{{valore}}</td>
+                <td id = "alimentazione_veicolo" hidden>{{alimentazione}}</td>
+                <td id = "categoria_veicolo" hidden>{{descrizione}}</td>
+                <td id = "prezzo_veicolo" hidden>{{prezzo}}</td>
+                <td id = "see_vehicle"><button class = "btn btn-outline-info" type = "button" id = "see_more" onclick = "see_vehicle_data();insert_visit()">Espandi</button></td>
             </tr>
         </table>
         <button class = "btn btn-outline-primary" type = "button" id = "search">Ricerca</button>
@@ -94,39 +93,59 @@
 
 
 <script>
-    //TODO visualizzare solo il nome della casa automobilistica, il nome del modello e la foto del veicolo, quando clicca, salvare la visita e mostrargli le altre informazioni
     //TODO ricerca dei veicoli
+    //TODO sull'on click di espandi oltre ad aprire il modal, inserire la visita di quell'utente su quella specifica macchina
+    //TODO dargli la possibilità di filtrare i veicoli
     w3.getHttpObject("../../get/get_complete_vehicle.php", get_vehicle);
     function get_vehicle(risultato)
     {
         w3.displayObject("view_data", risultato);
     }
-
-    $(document).ready(function() {
-        $("#cilindrata").hide();
-        $("#alimentazione").hide();
-        $("#categoria").hide();
-        $("#prezzo").hide();
-        $("#cilindrata_veicolo").hide();
-        $("#categoria_veicolo").hide();
-        $("#prezzo_veicolo").hide();
-        $("#alimentazione_veicolo").hide();
-    });
     
     function see_vehicle_data()
     {
-        //bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).show();
+        bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).show();
         $("#action_vehicle").text("Dati veicolo");
-        $("#cilindrata").show();
-        $("#alimentazione").show();
-        $("#categoria").show();
-        $("#prezzo").show();
         $('#auto tr').on('click', function() {
-            $(this).find("td#cilindrata_veicolo").show();
-            $(this).find("td#categoria_veicolo").show();
-            $(this).find("td#prezzo_veicolo").show();
-            $(this).find("td#alimentazione_veicolo").show();
+            $("#get_vehicle").attr("src", $(this).find("img#photo").attr("src"));
+            $("#modello_e_nome_veicolo").text($(this).find("td#casa_veicolo").text() + ", "+ $(this).find("td#rif_modello").text());
+            $("#prezzo").text("Prezzo: €" + $(this).find("td#prezzo_veicolo").text());
+            $("#cilindrata").text("Cilindrata: " + $(this).find("td#cilindrata_veicolo").text());
+            $("#categoria").text("Categoria: " + $(this).find("td#categoria_veicolo").text());
+            $("#alimentazione").text("Alimentazione: " + $(this).find("td#alimentazione_veicolo").text());
+            let id_veicolo = $(this).find("td#rif_veicolo").attr("value");
+            $("#val_vehicle").attr("value", id_veicolo);
         });
     }
-    
+
+    function insert_visit()
+    { 
+        //Capire come prendere l'id dell'utente
+        let id_veicolo = $("#val_vehicle").attr("value");
+        
+        let cur_date  =  new Date();
+        let cur_year  = cur_date.getFullYear();
+        let cur_month = cur_date.getMonth() + 1;
+        let cur_day   = cur_date.getDate();
+        let data_visita = cur_year + "-" + cur_month + "-" + cur_day;
+        /*$.ajax({
+                url: "../../insert/insert_visite.php?rif_veicolo=" + id_veicolo
+                    + "&rif_utente="                               + id_utente
+                    + "&data_visita="                              + data_visita,
+                method: 'GET',
+                dataType: 'html',
+                success: function(risultato) {
+                    alert(risultato);
+                    $("#view_data").empty();
+                    w3.getHttpObject("../../get/get_case.php", get_case);
+                },
+                error: function(error) {
+                    alert("Errore: " + error);
+                }
+            });*/
+    }
+
+    $("#close_vehicle").on('click', function() {
+        bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).hide();
+    });
 </script>

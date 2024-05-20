@@ -50,6 +50,7 @@ if(isset($_POST["send_data"]))
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // comando SQL  
         $query = "SELECT
+                     Concessionaria_Utenti.id_utente,
                      Concessionaria_Utenti.nome, Concessionaria_Utenti.cognome,
                      Concessionaria_Utenti.email, Concessionaria_Utenti.password, Concessionaria_Utenti.admin
                   FROM
