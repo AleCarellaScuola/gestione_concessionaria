@@ -1,3 +1,4 @@
+
 <?php
     //TODO search_cars
     session_start();
@@ -45,6 +46,7 @@
                     </div>
                     <p>
                         <label class = "form-label" id = "prezzo">Prezzo: €</label>
+                        
                     </p>
                     <p>
                         <label class = "form-label" id = "cilindrata">Cilindrata: </label>
@@ -57,6 +59,60 @@
                     </p>
                     <p class="modal-footer">
                         <button type="button" class="btn btn-secondary" id = "close_vehicle" data-dismiss="modal">Close</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="search_vehicle" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="action_vehicle">Ricerca veicolo</h5>
+                </div>
+                <div class="modal-body" id="manage_vehicle">
+                    <input type = "hidden" id = "val_vehicle">
+                    <div class = "form-floating mb-3"> 
+                        <figure class="figure">
+                            <img src="..." class="figure-img img-fluid rounded" id = "get_vehicle">
+                            <figcaption class="figure-caption" id = "modello_e_nome_veicolo"></figcaption>
+                        </figure>
+                    </div>
+                    <p>
+                        <label class = "form-label" id = "prezzo">Prezzo: </label>
+                        <input type="range" class="form-range" min="0" max="5" id="range_prezzo">
+                    </p>
+                    <p>                        
+                        <select id = "view_case_automobilisitche">
+                            <option>Marca</option>
+                            <option w3-repeat="case">{{nome}}</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label class = "form-label" id = "categoria">Modello: </label>
+                    </p>
+                    <p>
+                        <select id = "view_alimentazione">
+                            <option>Alimentazione</option>
+                            <option w3-repeat="alimentazioni">{{nome}}</option>
+                        </select>
+                    </p>
+                    <p>
+                        <select id = "view_categoria">
+                            <option>Categoria</option>
+                            <option w3-repeat="categorie">{{descrizione}}</option>
+                        </select>
+                    </p>
+                    <p>
+                        <select id = "view_cilindrata">
+                            <option>Cilindrata</option>
+                            <option w3-repeat="cilindrate">{{valore}}</option>
+                        </select>
+                    </p>
+                    <p class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id = "do_search" data-dismiss="modal">Ricerca</button>
+                        <button type="button" class="btn btn-secondary" id = "close_vehicle" data-dismiss="modal">Chiudi</button>
                     </p>
                 </div>
             </div>
@@ -85,21 +141,45 @@
                 <td id = "see_vehicle"><button class = "btn btn-outline-info" type = "button" id = "see_more" onclick = "see_vehicle_data();insert_visit()">Espandi</button></td>
             </tr>
         </table>
-        <button class = "btn btn-outline-primary" type = "button" id = "search">Ricerca</button>
+        <button class = "btn btn-secondary" type = "button" id = "search" onclick = "search_vehicle()">Ricerca</button>
     </div>
 </body>
 </html>
 
 
 <script>
-    //TODO ricerca dei veicoli
-    //TODO sull'on click di espandi oltre ad aprire il modal, inserire la visita di quell'utente su quella specifica macchina
     //TODO dargli la possibilità di filtrare i veicoli
     w3.getHttpObject("../../get/get_complete_vehicle.php", get_vehicle);
     function get_vehicle(risultato)
     {
         w3.displayObject("view_data", risultato);
     }
+
+    w3.getHttpObject("../../get/get_alimentazioni.php", get_alimentazione);
+    function get_alimentazione(risultato)
+    {
+        w3.displayObject("view_alimentazione", risultato);
+    }
+
+    w3.getHttpObject("../../get/get_categorie.php", get_categoria);
+    function get_categoria(risultato)
+    {
+        w3.displayObject("view_categoria", risultato);
+    }
+
+    w3.getHttpObject("../../get/get_cilindrate.php", get_cilindrata);
+    function get_cilindrata(risultato)
+    {
+        w3.displayObject("view_cilindrata", risultato);
+    }
+
+    //TODO capire perchè da errore
+    w3.getHttpObject("../../get/get_case.php", get_marca);
+    function get_marca(risultato)
+    {
+        console.log(risultato);
+        w3.displayObject("view_case_automobilistiche", risultato);
+    } 
     
     function see_vehicle_data()
     {
@@ -122,9 +202,14 @@
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).hide();
     });
 
+    function search_vehicle()
+    {
+        bootstrap.Modal.getOrCreateInstance(document.querySelector("#search_vehicle")).show();
+    }
+
     function insert_visit()
     {
-        //TODO capire come prendere l'id dell'utente
+        //TODO capire come prendere l'id dell'utente per inserire la visita
         let id_veicolo = $("#val_vehicle").attr("value");
 
         let cur_date    = new Date();
