@@ -8,14 +8,42 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="sign_up_style.css">
     
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+ 
+  <link rel="stylesheet" href="sign_up_style.css" type="text/css">
+
+
 </head>
 
-<body >
-    
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <div class="riquadro col col-xxl-4 col-xl-4 col-lg-4 col-md-5 col-sm-4 mx-auto border">
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+
+<div class="container-fluid justify-content-center">
+  <a class="navbar-brand" href="#">Concessionaria AutoMondo
+    <span class="material-symbols-outlined">car_tag</span>
+  </a>
+</div>
+
+
+
+
+</nav>
+<nav class="navbar navbar-expand-lg navbar-light ">
+<div class="container-fluid">
+
+
+</nav>
+
+
+    <div class="signup mx-auto">
+
+         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <div class="riquadro col col-xxl-4 col-xl-4 col-lg-4 col-md-5 col-sm-4 mx-auto">
             <div class="form-group">
                 <h3 style="color:white;">Sign-Up</h3>
           
@@ -77,10 +105,13 @@
                     <input type="password" class="form-control" name="rif_psw" id="psw" placeholder="password"><br>
                     <label for="psw">Password</label>
                 </div>
-                <button type="button" class = "btn btn-outline-primary" id="registrati" name="send_data">Registrati</button>
+                <button type="button" class = "btn btn-light" id="registrati" name="send_data">Registrati</button>
             </div>
-        </div>
+         </div>
         </form>
+
+    </div>
+    
   
 </body>
 
