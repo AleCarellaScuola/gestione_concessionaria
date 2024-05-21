@@ -73,18 +73,12 @@
                 </div>
                 <div class="modal-body" id="manage_vehicle">
                     <input type = "hidden" id = "val_vehicle">
-                    <div class = "form-floating mb-3"> 
-                        <figure class="figure">
-                            <img src="..." class="figure-img img-fluid rounded" id = "get_vehicle">
-                            <figcaption class="figure-caption" id = "modello_e_nome_veicolo"></figcaption>
-                        </figure>
-                    </div>
                     <p>
                         <label class = "form-label" id = "prezzo">Prezzo: </label>
                         <input type="range" class="form-range" min="0" max="5" id="range_prezzo">
                     </p>
                     <p>                        
-                        <select id = "view_case_automobilisitche">
+                        <select id = "view_case_automobilistiche">
                             <option>Marca</option>
                             <option w3-repeat="case">{{nome}}</option>
                         </select>
