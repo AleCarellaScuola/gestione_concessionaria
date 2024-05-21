@@ -1,6 +1,4 @@
-
 <?php
-    //TODO search_cars
     session_start();
 
     if (!array_key_exists("logged_in", $_SESSION) && !$_SESSION["logged_in"]) {
@@ -13,7 +11,7 @@
     $name_user    = $_SESSION["name"];
     $surname_user = $_SESSION["surname"];
     $email_user   = $_SESSION["email"];
-  
+    $id_utente    = $_SESSION['user_id'];
     echo "<script>$(\"#name_user\").text(\"$name_user, $surname_user\");"
       . "$(\"#email_user\").text(\"$email_user\")</script>";
 ?>
@@ -58,7 +56,7 @@
                         <label class = "form-label" id = "alimentazione">Alimentazione: </label>
                     </p>
                     <p class="modal-footer">
-                        <button type="button" class="btn btn-secondary" id = "close_vehicle" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" id = "close_vehicle" data-dismiss="modal" >Close</button>
                     </p>
                 </div>
             </div>
@@ -72,40 +70,57 @@
                     <h5 class="modal-title" id="action_vehicle">Ricerca veicolo</h5>
                 </div>
                 <div class="modal-body" id="manage_vehicle">
-                    <input type = "hidden" id = "val_vehicle">
                     <p>
-                        <label class = "form-label" id = "prezzo">Prezzo: </label>
-                        <input type="range" class="form-range" min="0" max="5" id="range_prezzo">
+                        <label>Ordina per prezzo: </label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="cresc">
+                            <label class="form-check-label">
+                                Crescente
+                            </label>
+                        </div>
+                        <div class = "form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="desc">
+                            <label class="form-check-label">
+                                Decrescente
+                            </label>
+                        </div>
+                    </p>
+                    <p>
+                        <div class = "form-floating mb-3">
+                            <input type="number" class="form-control"  id="min_price" placeholder = "0">
+                            <label  for = "min_price">Prezzo minimo: </label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control"  id="max_price" placeholder = "0">
+                            <label for = "max_price">Prezzo massimo: </label>
+                        </div>
                     </p>
                     <p>                        
-                        <select id = "view_case_automobilistiche">
-                            <option>Marca</option>
-                            <option w3-repeat="case">{{nome}}</option>
+                        <select id = "case_automobilistiche_search" class = "form-select">
+                            <option value = "">Marca</option>
+                            <option w3-repeat="case" value = "{{id_casa}}">{{nome}}</option>
                         </select>
                     </p>
                     <p>
-                        <label class = "form-label" id = "categoria">Modello: </label>
-                    </p>
-                    <p>
-                        <select id = "view_alimentazione">
-                            <option>Alimentazione</option>
-                            <option w3-repeat="alimentazioni">{{nome}}</option>
+                        <select id = "alimentazione_search" class = "form-select">
+                            <option value = "">Alimentazione</option>
+                            <option w3-repeat="alimentazioni" value = "{{id_alimentazione}}">{{nome}}</option>
                         </select>
                     </p>
                     <p>
-                        <select id = "view_categoria">
-                            <option>Categoria</option>
-                            <option w3-repeat="categorie">{{descrizione}}</option>
+                        <select id = "categoria_search" class = "form-select">
+                            <option value = "">Categoria</option>
+                            <option w3-repeat="categorie" value = "{{id_categoria}}">{{descrizione}}</option>
                         </select>
                     </p>
                     <p>
-                        <select id = "view_cilindrata">
-                            <option>Cilindrata</option>
-                            <option w3-repeat="cilindrate">{{valore}}</option>
+                        <select id = "cilindrata_search" class = "form-select">
+                            <option value = "">Cilindrata</option>
+                            <option w3-repeat="cilindrate" value = "{{id_cilindrata}}">{{valore}}</option>
                         </select>
                     </p>
                     <p class="modal-footer">
-                        <button type="button" class="btn btn-secondary" id = "do_search" data-dismiss="modal">Ricerca</button>
+                        <button type="button" class="btn btn-primary" id = "do_search" onclick = "filter_vehicle()"data-dismiss="modal">Ricerca</button>
                         <button type="button" class="btn btn-secondary" id = "close_vehicle" data-dismiss="modal">Chiudi</button>
                     </p>
                 </div>
@@ -124,7 +139,7 @@
                 <th hidden>Categoria</th>
                 <th hidden>Prezzo</th>
             </tr>
-            <tr w3-repeat="modelli_veicoli">
+            <tr w3-repeat="veicoli_filtrati">
                 <td id = "casa_veicolo">{{casa_produttrice}}</td>
                 <td id = "rif_modello">{{nome_modello}}</td>
                 <td id = "rif_veicolo" value = "{{id_veicolo}}"><img src = "..\..\vehicle_photos\{{riferimento}}" id = "photo" class = "img-fluid" width="150px" height="150px"></td>
@@ -132,7 +147,7 @@
                 <td id = "alimentazione_veicolo" hidden>{{alimentazione}}</td>
                 <td id = "categoria_veicolo" hidden>{{descrizione}}</td>
                 <td id = "prezzo_veicolo" hidden>{{prezzo}}</td>
-                <td id = "see_vehicle"><button class = "btn btn-outline-info" type = "button" id = "see_more" onclick = "see_vehicle_data();insert_visit()">Espandi</button></td>
+                <td id = "see_vehicle"><button class = "btn btn-outline-info" type = "button" value = "" id = "see_more" onclick = "see_vehicle_data();">Espandi</button></td>
             </tr>
         </table>
         <button class = "btn btn-secondary" type = "button" id = "search" onclick = "search_vehicle()">Ricerca</button>
@@ -142,44 +157,41 @@
 
 
 <script>
-    //TODO dargli la possibilità di filtrare i veicoli
-    w3.getHttpObject("../../get/get_complete_vehicle.php", get_vehicle);
+    w3.getHttpObject("../../get/get_filtered_vehicle.php", get_vehicle);
     function get_vehicle(risultato)
     {
         w3.displayObject("view_data", risultato);
     }
-
+    
     w3.getHttpObject("../../get/get_alimentazioni.php", get_alimentazione);
     function get_alimentazione(risultato)
     {
-        w3.displayObject("view_alimentazione", risultato);
+        w3.displayObject("alimentazione_search", risultato);
     }
-
+    
     w3.getHttpObject("../../get/get_categorie.php", get_categoria);
     function get_categoria(risultato)
     {
-        w3.displayObject("view_categoria", risultato);
+        w3.displayObject("categoria_search", risultato);
     }
-
+    
     w3.getHttpObject("../../get/get_cilindrate.php", get_cilindrata);
     function get_cilindrata(risultato)
     {
-        w3.displayObject("view_cilindrata", risultato);
+        w3.displayObject("cilindrata_search", risultato);
     }
-
-    //TODO capire perchè da errore
+    
     w3.getHttpObject("../../get/get_case.php", get_marca);
     function get_marca(risultato)
     {
-        console.log(risultato);
-        w3.displayObject("view_case_automobilistiche", risultato);
+        w3.displayObject("case_automobilistiche_search", risultato);
     } 
     
     function see_vehicle_data()
     {
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).show();
         $("#action_vehicle").text("Dati veicolo");
-        $('#auto tr').on('click', function() {
+        let id_veicolo = $('#auto tr').on('click', function() {
             $("#get_vehicle").attr("src", $(this).find("img#photo").attr("src"));
             $("#modello_e_nome_veicolo").text($(this).find("td#casa_veicolo").text() + ", "+ $(this).find("td#rif_modello").text());
             $("#prezzo").text("Prezzo: €" + $(this).find("td#prezzo_veicolo").text());
@@ -189,12 +201,16 @@
             let id_veicolo = $(this).find("td#rif_veicolo").attr("value");
             $("#val_vehicle").attr("value", id_veicolo);
         });
-
+        
+        
     }
-
+    $("#vehicle_modal").on("hide.bs.modal", function() {
+        insert_visit();
+    })
+    
     $("#close_vehicle").on('click', function() {
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).hide();
-    });
+     });
 
     function search_vehicle()
     {
@@ -203,26 +219,55 @@
 
     function insert_visit()
     {
-        //TODO capire come prendere l'id dell'utente per inserire la visita
-        let id_veicolo = $("#val_vehicle").attr("value");
-
+        let id_veicolo  = $("#val_vehicle").attr("value"); 
+        let id_utente   = "<?php echo $_SESSION["user_id"]?>"
         let cur_date    = new Date();
         let cur_year    = cur_date.getFullYear();
         let cur_month   = cur_date.getMonth() + 1;
         let cur_day     = cur_date.getDate();
         let data_visita = cur_year + "-" + cur_month + "-" + cur_day;
 
-        /*$.ajax({
+        $.ajax({
                 url: "../../insert/insert_visite.php?rif_veicolo=" + id_veicolo
-                + "&rif_utente="                                   + iu_utente
+                + "&rif_utente="                                   + id_utente
                 + "&data_visita="                                  + data_visita,
                 method: 'GET',
-                dataType: 'html',
-                success: function (risultato) {
-                },
-                error: function (error) {
-                    console.log("Errore: " + error);
-                }
-        });*/
+                dataType: 'html'
+        }); 
     }
+
+    function filter_vehicle()
+    {
+        //TODO se non trova nulla stampargli che non ha trovato null
+        let order_condition = "";
+        if($("#cresc").is(":checked")) {
+            order_condition = $("#cresc").attr("id");
+        } else if($("#desc").is(":checked"))
+        {
+            order_condition = $("#desc").attr("id");
+        } else
+            order_condition = null;
+
+        console.log(order_condition);
+        let price_condition_min = $("#min_price").val();
+        let price_condition_max = $("#max_price").val();
+        let marca_condition = $("#case_automobilistiche_search :selected").attr("value");
+        let alimentazione_condition = $("#alimentazione_search :selected").attr("value");
+        let displacement_condition = $("#cilindrata_search :selected").attr("value");
+        let category_condition = $("#categoria_search :selected").attr("value");
+        
+        console.log(marca_condition);
+        
+        $("#view_data").empty();
+        w3.getHttpObject("../../get/get_filtered_vehicle.php?min_prezzo=" + price_condition_min
+                        + "&max_prezzo="                                  + price_condition_max
+                        + "&marca_condition="                             + marca_condition
+                        + "&alimentazione_condition="                     + alimentazione_condition
+                        + "&displacement_condition="                      + displacement_condition
+                        + "&category_condition="                          + category_condition
+                        + "&order_condition="                             + order_condition, 
+                        get_vehicle);
+
+    }
+
 </script>

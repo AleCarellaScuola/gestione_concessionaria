@@ -8,8 +8,7 @@
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // comando SQL  
-    $query = "
-                SELECT
+    $query = "  SELECT
                     Concessionaria_modelli.id_modello,
                     Concessionaria_modelli.nome AS nome_modello, 
                     Concessionaria_case_automobilistiche.nome AS casa_produttrice,

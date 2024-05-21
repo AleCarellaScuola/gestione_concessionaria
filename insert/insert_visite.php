@@ -21,7 +21,7 @@
     $stmt->bindParam(":id_utente", $id_utente, PDO::PARAM_INT);
     $stmt->bindParam(":data_visita", $data_visita, PDO::PARAM_STR);
     if ($stmt->execute() === TRUE) {
-        echo "Visita inserito con successo";
+        echo "Visita inserita con successo";
     } else {
         echo "Errore!";
 
