@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="menu_style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
@@ -91,8 +93,11 @@
             <td id = "cilindrata">{{valore}}</td>
             <td id = "alimentazione">{{alimentazione}}</td>
             <td id = "categoria">{{descrizione}}</td>
-            <td><button class = "btn btn-outline-danger" type = "button" id = "delete" onclick="delete_record()">Elimina</button></td>
-            <td><button class = "btn btn-outline-secondary" type = "button" id = "modify" onclick="modify_record()">Modifica</button></td>
+            <td><div class="px-2 py-2">
+                        <button type="button" class="btn btn-outline-danger" id = "delete" onclick = "delete_record()" ><span class="material-symbols-outlined">delete</span></button>
+                        <button type="button" class="btn btn-outline-secondary" id = "modify" onclick = "modify_record();"><span class="material-symbols-outlined">edit_note</span></button>
+                </div>
+            </td>
             </tr>
         </table>
         <button class = "btn btn-outline-primary" type = "button" id = "insert" onclick = "do_insert()">Inserisci</button>
@@ -209,6 +214,7 @@
                     alert(risultato);
                     $("#view_data").empty();
                     w3.getHttpObject("../../get/get_modelli.php", get_modelli);
+                    bootstrap.Modal.getOrCreateInstance(document.querySelector("#model_vehicle_modal")).hide();
                 },
                 error: function (error) {
                     console.log("Errore: " + error);
@@ -236,6 +242,7 @@
                     alert(risultato);
                     $("#view_data").empty();
                     w3.getHttpObject("../../get/get_modelli.php", get_modelli);
+                    bootstrap.Modal.getOrCreateInstance(document.querySelector("#model_vehicle_modal")).hide();
                 },
                 error: function (error) {
                     console.log("Errore: " + error);
