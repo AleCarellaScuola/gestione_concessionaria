@@ -267,7 +267,7 @@
                         + "&category_condition="                          + category_condition
                         + "&order_condition="                             + order_condition, 
                         get_vehicle);
-        bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).hide();
+        bootstrap.Modal.getOrCreateInstance(document.querySelector("#search_vehicle")).hide();
 
     }
 

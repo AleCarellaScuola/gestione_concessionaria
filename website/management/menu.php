@@ -63,6 +63,7 @@
 
       <ul class="navbar-nav" id="actions">
         <?php
+        page("do_query", "Esegui query", "do_query.php");
         if ($_SESSION["admin_value"] == 0)
           page("ricerca", "Ricerca veicolo", "search_cars.php");
         else {
