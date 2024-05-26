@@ -1,0 +1,51 @@
+
+
+body{
+    background-color: #031633;
+}
+
+.riquadro{
+    background-color: lightgray;
+    margin:10px;
+    border-radius: 16px;
+    width: 30;
+}
+
+
+li a:hover{
+
+    text-decoration: none;
+    color:whitesmoke;
+    background-color: rgb(43, 113, 174);
+}
+
+.li_onclick{
+
+    text-decoration: none;
+    color:whitesmoke;
+    background-color: rgb(43, 113, 174);
+}
+
+li a {
+
+    padding: 9px;
+    text-decoration: none;
+    color:whitesmoke;
+   
+}
+
+
+
+.userData{
+
+    color:black;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.ombra {
+    --bs-shadow-rgb: 255, 255, 255;
+    
+     box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px, rgba(255, 255, 255, 0.12) 0px -12px 30px, rgba(255, 255, 255, 0.12) 0px 4px 6px, rgba(255, 255, 255, 0.17) 0px 12px 13px, rgba(255, 255, 255, 0.09) 0px -3px 5px;
+  }
+ 
