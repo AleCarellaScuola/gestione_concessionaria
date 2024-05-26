@@ -86,6 +86,7 @@
             <th>Cilindrata</th> 
             <th>Alimentazione</th> 
             <th>Categoria</th> 
+            <th>Opzioni</th> 
         </tr>
             <tr w3-repeat="modelli" id = "val_categoria" value = "{{id_modello}}">
             <td id = "modello">{{nome_modello}}</td>
@@ -100,7 +101,7 @@
             </td>
             </tr>
         </table>
-        <button class = "btn btn-outline-primary" type = "button" id = "insert" onclick = "do_insert()">Inserisci</button>
+        <button class = "btn btn-outline-primary ombra mx-3 mb-3" type = "button" id = "insert" onclick = "do_insert()">Inserisci</button>
     </div>
 </body>
 </html>

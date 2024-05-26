@@ -1,3 +1,4 @@
+
 <?php
     session_start();
 
@@ -68,8 +69,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id = "save_change_model" onclick = "call_action_model()">Save changes</button>
-                    <button type="button" class="btn btn-secondary" id = "close_model" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id = "save_change_model" onclick = "call_action_model()">Inserisci</button>
+                    <button type="button" class="btn btn-secondary" id = "close_model" data-dismiss="modal">Chiudi</button>
                 </div>
             </div>
         </div>
@@ -105,8 +106,8 @@
                         </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" id = "save_change_vehicle" name = "send_data" onclick = "call_action_vehicle(this.value)">Save changes</button>
-                            <button type="button" class="btn btn-secondary" id = "close_vehicle" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary  btn-success" id = "save_change_vehicle" name = "send_data" onclick = "call_action_vehicle(this.value)">Salva</button>
+                            <button type="button" class="btn btn-secondary" id = "close_vehicle" data-dismiss="modal">Chiudi</button>
                         </div>
                     </form>
                 </div>
@@ -124,6 +125,7 @@
             <th>Categoria</th>
             <th>Prezzo</th>
             <th>Veicolo</th>
+            <th>opzioni</th>
         </tr>
             <tr w3-repeat="modelli_veicoli">
             <td id = "casa_veicolo">{{casa_produttrice}}</td>
@@ -134,13 +136,13 @@
             <td id = "prezzo_veicolo">{{prezzo}}</td>
             <td id = "rif_veicolo" value = "{{id_veicolo}}"><img src = "..\..\vehicle_photos\{{riferimento}}" id = "photo" class = "img-fluid" width="150px" height="150px"></td>
             <td><div class="px-2 py-2">
-                        <button type="button" class="btn btn-outline-danger" id = "delete" onclick = "delete_record()" ><span class="material-symbols-outlined">delete</span></button>
-                        <button type="button" class="btn btn-outline-secondary" id = "modify" onclick = "modify_record();"><span class="material-symbols-outlined">edit_note</span></button>
+                        <button type="button" class="btn btn-outline-danger" id = "delete" onclick = "delete_record(event)" ><span class="material-symbols-outlined">delete</span></button>
+                        <button type="button" class="btn btn-outline-secondary" id = "modify" onclick = "modify_record(event);"><span class="material-symbols-outlined">edit_note</span></button>
                 </div>
             </td>
             </tr>
         </table>
-        <button class = "btn btn-outline-primary" type = "button" id = "insert" onclick = "do_insert()">Inserisci</button>
+        <button class = "btn btn-outline-primary px-5 mx-3 mb-3 ombra rounded" type = "button" id = "insert" onclick = "do_insert()">Inserisci Veicolo</button>
     </div>
 </body>
 </html>
@@ -174,39 +176,37 @@
         w3.displayObject("modelli", risultato);
     }
     
-    function delete_record() {
-        $("#auto tr").on('click', function() {
-            let id_veicolo = $(this).find("td#rif_veicolo").attr("value");
-            console.log(id_veicolo);
-            $.ajax({
-                url: "../../delete/delete_veicolo.php?id_veicolo=" + id_veicolo,
-                method: 'GET',
-                dataType: 'html',
-                success: function(risultato) {
-                    alert(risultato);
-                    $("#view_data").empty();
-                    w3.getHttpObject("../../get/get_complete_vehicle.php", get_vehicle);
-                },
-                error: function(error) {
-                    console.log("Errore: " + error);
-                }
-            }); 
-        });
+    function delete_record(event) {
+        let row = event.target.closest("tr");
+        let id_veicolo = $(row).find("td#rif_veicolo").attr("value");
+        console.log(id_veicolo);
+        $.ajax({
+            url: "../../delete/delete_veicolo.php?id_veicolo=" + id_veicolo,
+            method: 'GET',
+            dataType: 'html',
+            success: function(risultato) {
+                alert(risultato);
+                $("#view_data").empty();
+                w3.getHttpObject("../../get/get_complete_vehicle.php", get_vehicle);
+            },
+            error: function(error) {
+                console.log("Errore: " + error);
+            }
+        }); 
     }
 
-    function modify_record() {
+    function modify_record(event) {
+        let row = event.target.closest("tr");
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).show();
         $("#action_vehicle").text("Modifica veicolo");
-        $('#auto tr').on('click', function() {
-            $("#modelli option:contains(" + $(this).find("td#rif_modello").text() + ")").attr('selected', 'selected');
-            $("#price").val($(this).find("td#prezzo_veicolo").text());
-            let id_categoria = $(this).attr("value");
-            $("#val_categoria").attr("value", id_categoria);
-            $("#uploaded_image").attr("src", $(this).find("img#photo").attr("src"));
-            $("#photo_vehicle").attr("value", $(this).find("img#photo").attr("src"));
-        });
+        $("#modelli option:contains(" + $(row).find("td#rif_modello").text() + ")").attr('selected', 'selected');
+        $("#price").val($(row).find("td#prezzo_veicolo").text());
+        let id_categoria = $(row).attr("value");
+        $("#val_categoria").attr("value", id_categoria);
+        $("#uploaded_image").attr("src", $(row).find("img#photo").attr("src"));
+        $("#photo_vehicle").attr("value", $(row).find("img#photo").attr("src"));
         $("#save_change_vehicle").attr("value", "update");
-        
+        $("#val_vehicle").attr("value", $(row).find("#rif_veicolo").attr("value"));
     }
 
     function do_insert() {
@@ -221,11 +221,11 @@
     function call_action_vehicle(action)
     {
         
-        if(action === "insert")
+        if(action == "insert")
         {
             let prezzo     = $("#price").val();
             let src_photo  = $("#photo_vehicle").val().split('\\').pop();
-            let id_modello = $("#modelli option:selected").val();   
+            let id_modello = $("#modelli option:selected").val();  
             
             $.ajax({
                 url: "../../insert/insert_veicoli.php?prezzo_veicolo=" + prezzo
@@ -243,12 +243,13 @@
                     console.log("Errore: " + error);
                 }
             });
-       } else if (action === "update")
+       } else if (action == "update")
        {
             let prezzo     = $("#price").val();
             let src_photo  = $("#photo_vehicle").attr("value").split('\\').pop();
             let id_modello = $("#modelli option:selected").val();   
-            let id_veicolo = $("#rif_veicolo").attr("value");
+            let id_veicolo = $("#val_vehicle").attr("value");
+            console.log("Modello:" + id_modello + " Veicolo:" + id_veicolo);
             $.ajax({
                 url: "../../update/update_vehicle.php?prezzo=" + prezzo
                 + "&link_foto="                                + src_photo

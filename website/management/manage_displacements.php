@@ -43,8 +43,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id = "save_change" onclick = "call_action(this.value)">Save changes</button>
-                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-success" id = "save_change" onclick = "call_action(this.value)">Salva</button>
+                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Chiudi</button>
                 </div>
             </div>
         </div>
@@ -53,6 +53,7 @@
         <table class = "table table-hover table-sm" id = "auto">
         <tr>
             <th>Valore</th>
+            <th>Opzioni</th>
             </tr>
             <tr w3-repeat="cilindrate" id = "val_cilindrata" value = "{{id_cilindrata}}">
             <td id = "valore_cilindrata">{{valore}}</td>
@@ -64,7 +65,7 @@
             </tr>
         </table>
     </div>
-    <button class = "btn btn-outline-primary" type = "button" id = "insert" onclick = "do_insert()">Inserisci</button>
+    <button class = "btn btn-outline-primary ombra p-2 mx-3 mb-3" type = "button" id = "insert" onclick = "do_insert()">Inserisci</button>
 </body>
 </html>
 

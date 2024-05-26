@@ -41,10 +41,12 @@
                         <input type="text" class="form-control" name="rif_name" id="categoria" placeholder="Inserisci la categoria del veicolo">
                         <label for="categoria">Categoria</label>
                     </div>
+                    
                 </div>
+                
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id = "save_change" onclick = "call_action(this.value)">Save changes</button>
-                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-success" id = "save_change" onclick = "call_action(this.value)">Salva</button>
+                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Chiudi</button>
                 </div>
             </div>
         </div>
@@ -53,6 +55,7 @@
         <table id = "auto" class = "table table-hover">
         <tr>
             <th>Categoria</th>
+            <th>Opzioni</th>
             </tr>
             <tr w3-repeat="categorie" id = "val_categoria" value = "{{id_categoria}}">
             <td id = "descrizione_categoria">{{descrizione}}</td>
@@ -63,7 +66,7 @@
             </td>
             </tr>
         </table>
-        <button class = "btn btn-outline-primary" type = "button" id = "insert" onclick = "do_insert()">Inserisci</button>
+        <button class = "btn btn-outline-primary ombra mx-3" type = "button" id = "insert" onclick = "do_insert()">Inserisci</button>
     </div>
 </body>
 </html>

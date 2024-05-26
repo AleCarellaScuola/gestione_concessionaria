@@ -30,108 +30,110 @@
 </head>
 
 <body style = "color: white" onload = "onload()">
-    <p id = "first_query">
-        <h3>Prima query</h3>
-        <select id = "get_moto" class = "form-select" style = "width: 400px;">
-            <option w3-repeat = "moto" value = "{{id_modello}}">{{casa_produttrice}} {{nome_modello}} {{valore}}cc, {{alimentazione}}</option>
-        </select>
-        <br>
-        <button id = "send_motorcycle" class = "btn btn-primary" onclick = "numero_visite()">Seleziona</button>
-        <table class = "table table-bordered" id = "prima">
-            <tr>
-                <th>Numero di visite</th>
-                <th>Modello</th>
-            </tr>
-            <tr w3-repeat="numero_visite" >
-                <td>{{n_visite}}</td>
-                <td>{{nome}}</td>
-            </tr>
-        </table>
-    </p>
+    <div class="px-4">
+        <p id = "first_query">
+            <h3>Prima query</h3>
+            <select id = "get_moto" class = "form-select" style = "width: 400px;">
+                <option w3-repeat = "moto" value = "{{id_modello}}">{{casa_produttrice}} {{nome_modello}} {{valore}}cc, {{alimentazione}}</option>
+            </select>
+            <br>
+            <button id = "send_motorcycle" class = "btn btn-primary" onclick = "numero_visite()">Seleziona</button>
+            <table class = "table table-bordered" id = "prima">
+                <tr>
+                    <th>Numero di visite</th>
+                    <th>Modello</th>
+                </tr>
+                <tr w3-repeat="numero_visite" >
+                    <td>{{n_visite}}</td>
+                    <td>{{nome}}</td>
+                </tr>
+            </table>
+        </p>
 
-    <p id = "second_query">
-        <h3>Seconda query</h3>
-        <select id = "get_auto" class = "form-select" style = "width: 400px;">
-            <option w3-repeat="macchine" value = "{{id_modello}}">{{casa_produttrice}} {{nome_modello}} {{valore}}cc, {{alimentazione}}</option>
-        </select>
-        <br>
-        <button id = "send_cars" class = "btn btn-primary" onclick = "esegui_seconda()">Seleziona</button>
-        <table class = "table table-bordered" id = "seconda">
-            <tr>
-                <th>Provincia</th>
-                <th>Eta</th>
-                <th>Categoria</th>
-                <th>Nome</th>
-            </tr>
-            <tr w3-repeat="seconda_query">
-                <td>{{nome_provincia}}</td>
-                <td>{{Eta}}</td>
-                <td>{{descrizione}}</td>
-                <td>{{nome}}</td>
-            </tr>
-        </table>
-    </p>
+        <p id = "second_query">
+            <h3>Seconda query</h3>
+            <select id = "get_auto" class = "form-select" style = "width: 400px;">
+                <option w3-repeat="macchine" value = "{{id_modello}}">{{casa_produttrice}} {{nome_modello}} {{valore}}cc, {{alimentazione}}</option>
+            </select>
+            <br>
+            <button id = "send_cars" class = "btn btn-primary" onclick = "esegui_seconda()">Seleziona</button>
+            <table class = "table table-bordered" id = "seconda">
+                <tr>
+                    <th>Provincia</th>
+                    <th>Eta</th>
+                    <th>Categoria</th>
+                    <th>Nome</th>
+                </tr>
+                <tr w3-repeat="seconda_query">
+                    <td>{{nome_provincia}}</td>
+                    <td>{{Eta}}</td>
+                    <td>{{descrizione}}</td>
+                    <td>{{nome}}</td>
+                </tr>
+            </table>
+        </p>
 
-    <p id = "third_query">
-        <h3>Terza query</h3>
-        <table class = "table table-bordered" id = "terza">
-            <tr>
-                <th>Casa automobilistica</th>
-                <th>Modello</th>
-                <th>Categoria</th>
-            </tr>
-            <tr w3-repeat="terza_query">
-                <td>{{nome_casa}}</td>
-                <td>{{nome_modello}}</td>
-                <td>{{descrizione}}</td>
-            </tr>
-        </table>
-    </p>
+        <p id = "third_query">
+            <h3>Terza query</h3>
+            <table class = "table table-bordered" id = "terza">
+                <tr>
+                    <th>Casa automobilistica</th>
+                    <th>Modello</th>
+                    <th>Categoria</th>
+                </tr>
+                <tr w3-repeat="terza_query">
+                    <td>{{nome_casa}}</td>
+                    <td>{{nome_modello}}</td>
+                    <td>{{descrizione}}</td>
+                </tr>
+            </table>
+        </p>
 
-    <p id = "fourth_query">
-        <h3>Quarta query</h3>
-        <table class = "table table-bordered" id = "quarta">
-            <tr>
-                <th>Modello</th>
-                <th>Numero di visite</th>
-                <th>Provincia</th>
-                <th>Acronimo</th>
-                <th>Categoria</th>
-                <th>Casa automobilistica</th>
-            </tr>
-            <tr w3-repeat="quarta_query">
-                <td>{{Nome_modello}}</td>
-                <td>{{N_visite}}</td>
-                <td>{{Provincia}}</td>
-                <td>{{acronimo}}</td>
-                <td>{{descrizione}}</td>
-                <td>{{Casa_produttrice}}</td>
-            </tr>
-        </table>
-    </p>
-    
-    <p id = "fifth_query">
-        <h3>Quinta query</h3>
-        <select id = "get_veicoli" class = "form-select" style = "width: 400px;">
-            <option w3-repeat="modelli_veicoli" value = "{{id_veicolo}}">{{casa_produttrice}} {{nome_modello}} {{valore}}cc, {{alimentazione}}</option>
-        </select>
-        <br>
-        <button id = "send_vehicle" class = "btn btn-primary" onclick = "esegui_quinta()">Seleziona</button>
-        <table class = "table table-bordered" id = "quinta">
-            <tr>
-                <th>Cognome</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Numero di visite</th>
-            </tr>
-            <tr w3-repeat="quinta_query">
-                <td>{{cognome}}</td>
-                <td>{{nome}}</td>
-                <td>{{email}}</td>
-                <td>{{N_visite}}</td>
-            </tr>
-        </table>
-    </p>
+        <p id = "fourth_query">
+            <h3>Quarta query</h3>
+            <table class = "table table-bordered" id = "quarta">
+                <tr>
+                    <th>Modello</th>
+                    <th>Numero di visite</th>
+                    <th>Provincia</th>
+                    <th>Acronimo</th>
+                    <th>Categoria</th>
+                    <th>Casa automobilistica</th>
+                </tr>
+                <tr w3-repeat="quarta_query">
+                    <td>{{Nome_modello}}</td>
+                    <td>{{N_visite}}</td>
+                    <td>{{Provincia}}</td>
+                    <td>{{acronimo}}</td>
+                    <td>{{descrizione}}</td>
+                    <td>{{Casa_produttrice}}</td>
+                </tr>
+            </table>
+        </p>
+        
+        <p id = "fifth_query">
+            <h3>Quinta query</h3>
+            <select id = "get_veicoli" class = "form-select" style = "width: 400px;">
+                <option w3-repeat="modelli_veicoli" value = "{{id_veicolo}}">{{casa_produttrice}} {{nome_modello}} {{valore}}cc, {{alimentazione}}</option>
+            </select>
+            <br>
+            <button id = "send_vehicle" class = "btn btn-primary" onclick = "esegui_quinta()">Seleziona</button>
+            <table class = "table table-bordered" id = "quinta">
+                <tr>
+                    <th>Cognome</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Numero di visite</th>
+                </tr>
+                <tr w3-repeat="quinta_query">
+                    <td>{{cognome}}</td>
+                    <td>{{nome}}</td>
+                    <td>{{email}}</td>
+                    <td>{{N_visite}}</td>
+                </tr>
+            </table>
+        </p>
+    </div>
 </body>
 
 <script>

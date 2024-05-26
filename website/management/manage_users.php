@@ -1,3 +1,4 @@
+
 <?php
     session_start();
     if (!array_key_exists("logged_in", $_SESSION) && !$_SESSION["logged_in"]) {
@@ -92,8 +93,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id = "save_change" onclick = "call_action(this.value)">Save changes</button>
-                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-success" id = "save_change" onclick = "call_action(this.value)">Salva</button>
+                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Chiudi</button>
                 </div>
             </div>
         </div>
@@ -110,6 +111,7 @@
                 <th>Email</th>
                 <th>Indirizzo</th>
                 <th>Provincia</th>
+                <th>Opzioni</th>
             </tr>
             <tr w3-repeat="utenti" id="val_utente" value="{{id_utente}}">
                 <td id = "user_name">{{nome}}</td>
@@ -126,7 +128,7 @@
                 </td>
             </tr>
         </table>
-        <button type="button" class = "btn btn-outline-primary" id="insert" onclick="do_insert()">Inserisci</button>
+        <button type="button" class = "btn btn-outline-primary ombra mx-3 mb-3" id="insert" onclick="do_insert()">Inserisci</button>
     </div>
 </body>
 

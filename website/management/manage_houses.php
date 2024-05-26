@@ -47,8 +47,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id = "save_change" onclick = "call_action(this.value)">Save changes</button>
-                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-success" id = "save_change" onclick = "call_action(this.value)">Salva</button>
+                    <button type="button" class="btn btn-secondary" id = "close" data-dismiss="modal">Chiudi</button>
                 </div>
             </div>
         </div>
@@ -60,6 +60,7 @@
             <tr>
                 <th>Nome</th>
                 <th>P.Iva</th>
+                <th>Opzioni</th>
             </tr>
             <tr w3-repeat="case" id="val_casa" value="{{id_casa}}">
                 <td id = "nome_casa">{{nome}}</td>
@@ -72,7 +73,7 @@
             </tr>
         </table>
     </div>
-    <button type="button" class = "btn btn-outline-primary" id="insert" onclick="do_insert()">Inserisci</button>
+    <button type="button" class = "btn btn-outline-primary mx-3 mb-3 ombra" id="insert" onclick="do_insert()">Inserisci</button>
 </body>
 
 </html>
