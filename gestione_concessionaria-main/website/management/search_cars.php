@@ -138,6 +138,7 @@
                 <th hidden>Alimentazione</th>
                 <th hidden>Categoria</th>
                 <th hidden>Prezzo</th>
+                <th></th>
             </tr>
             <tr w3-repeat="veicoli_filtrati">
                 <td id = "casa_veicolo">{{casa_produttrice}}</td>
@@ -150,7 +151,7 @@
                 <td id = "see_vehicle"><button class = "btn btn-outline-info" type = "button" value = "" id = "see_more" onclick = "see_vehicle_data();">Espandi</button></td>
             </tr>
         </table>
-        <button class = "btn btn-secondary" type = "button" id = "search" onclick = "search_vehicle()">Ricerca</button>
+        <button class = "btn btn-secondary mx-3 mb-3 ombra" type = "button" id = "search" onclick = "search_vehicle()">Ricerca</button>
     </div>
 </body>
 </html>
