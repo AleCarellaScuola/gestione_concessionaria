@@ -101,7 +101,7 @@
 
 
     <div id="view_data">
-        <table id="auto" class = "table table-bordered">
+        <table id="auto" class = "table table-hover">
             <tr>
                 <th>Nome</th>
                 <th>Cognome</th>

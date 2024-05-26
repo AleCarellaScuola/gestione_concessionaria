@@ -86,7 +86,7 @@
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype = "multipart/form-data">                    
                         <div class = "form-floating mb-3">
                             <select id="modelli" class="form-select" onchange = "open_modal_for_model(this.value)">
-                                <option selected>Seleziona il modello</option>
+                                <option value = "null" selected>Seleziona il modello</option>
                                 <option w3-repeat="modelli" name="rif_modello" value="{{id_modello}}">{{nome_modello}} {{nome_casa_automobilistica}}, {{valore}}, {{alimentazione}}, {{descrizione}}</option>
                                 <option id = "add_model" value = "add">Aggiungi modello</option>
                             </select>
@@ -212,11 +212,9 @@
     function do_insert() {
         bootstrap.Modal.getOrCreateInstance(document.querySelector("#vehicle_modal")).show();
         $("#action_vehicle").text("Inserisci veicolo");
-        $("#modelli option:contains(Seleziona il modello)").attr('selected', 'selected');
-        $("#price").val($(this).find("td#prezzo_veicolo").text());
-        let id_categoria = $(this).attr("value");
-        $("#val_categoria").attr("value", id_categoria);
-        $("#uploaded_image").attr("src", $(this).find("img#photo_vehicle").attr("src"));
+        $("#modelli").val("null").attr('selected', 'selected');
+        $("#price").val("");
+        $("#uploaded_image").attr("src", "");
         $("#save_change_vehicle").attr("value", "insert");
     }
     

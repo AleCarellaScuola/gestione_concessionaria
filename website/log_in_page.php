@@ -39,11 +39,11 @@
             <div class="form-group">
                 <h3 style="color: white;">Log-in</h3>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" name="rif_email" id="email" placeholder="email"><br>
+                    <input type="email" class="form-control" name="rif_email" id="email" placeholder="email" required><br>
                     <label for="email">E-mail</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" name="rif_psw" id="psw" placeholder="password"><br>
+                    <input type="password" class="form-control" name="rif_psw" id="psw" placeholder="password" required><br>
                     <label for="psw">Password</label>
                 </div>
                 <button type="submit" class="btn btn-light" id="accedi" name="send_data">Accedi</button>
@@ -62,8 +62,28 @@
 
 <?php
 if (isset($_POST["send_data"])) {
-    $email_utente = $_POST["rif_email"];
-    $psw_utente   = $_POST["rif_psw"];
+
+    if(!empty($_POST["rif_email"]))  
+    {
+
+        $email_utente = $_POST["rif_email"];
+    }
+    else 
+    {
+        echo "<script>alert(\"Devi inserire la mail\")</script>";
+        return;
+    }
+
+    if(!empty($_POST["rif_psw"]))
+    {
+
+        $psw_utente = $_POST["rif_psw"];
+    }
+    else 
+    {
+        echo "<script>alert(\"Devi inserire la password\")</script>";
+        return;
+    }
 
     $data     = json_decode(file_get_contents("../config.json"), true);
     $host     = $data['host'];

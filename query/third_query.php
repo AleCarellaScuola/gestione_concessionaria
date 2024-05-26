@@ -40,7 +40,11 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["terza_query"][] = $conn->errorInfo();
+        $risp["terza_query"][] = array(
+            "nome_casa" => "Nessuna casa automobilistica trovata",
+            "nome_modello" => "Nessun modello trovato",
+            "descrizione" => "Nessuna categoria trovata"
+        );
         echo json_encode($risp);
 
     }

@@ -22,7 +22,10 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["categorie"][] = $conn->errorInfo();
+        $risp["categorie"][] =array(
+            "id_categoria" => null,
+            "descrizione" => "Nessuna categoria trovata"
+          );
         echo json_encode($risp);
 
     }

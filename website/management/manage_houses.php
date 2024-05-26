@@ -56,7 +56,7 @@
 
 
     <div id="view_data">
-        <table class = "table table-bordered" id="auto">
+        <table class = "table table-hover" id="auto">
             <tr>
                 <th>Nome</th>
                 <th>P.Iva</th>

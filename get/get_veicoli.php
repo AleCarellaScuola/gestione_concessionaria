@@ -26,7 +26,10 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["veicoli"][] = $conn->errorInfo();
+        $risp["veicoli"][] = array(
+            "prezzo" => "Nessun prezzo trovato",
+            "nome" => "Nessun modello trovato"
+        );
         echo json_encode($risp);
 
     }

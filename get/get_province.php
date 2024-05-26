@@ -22,7 +22,11 @@
         }
         echo(json_encode($risp));
     } else {
-        $risp["province"][] = $conn->errorInfo();
+        $risp["province"][] = array(
+            "nome" => "Nessuna provincia trovata",
+            "acronimo" => "Nessun acronimo della provincia trovata",
+            "id_provincia" => null
+        );
         echo json_encode($risp);
 
     }

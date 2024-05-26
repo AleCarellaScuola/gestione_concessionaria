@@ -46,15 +46,16 @@
       </a>
     </div>
 
-
-    <ul class="nav navbar-nav navbar-right mx-3">
-      <a href="#" data-toggle="modal" data-target="#logoutModal">
-        <button type="button" class="btn btn-outline-secondary btn-sm">Logout
-          <span class="material-symbols-outlined">logout</span>
-        </button>
-
-      </a>
-    </ul>
+    <form action = "../log_out.php">
+      <ul class="nav navbar-nav navbar-right mx-3">
+        <a href="#" data-toggle="modal" data-target="#logoutModal">
+          <button type="submit" class="btn btn-outline-secondary btn-sm">Logout
+            <span class="material-symbols-outlined">logout</span>
+          </button>
+  
+        </a>
+      </ul>
+    </form>
 
   </nav>
   <nav class="navbar navbar-expand-lg navbar-light ">

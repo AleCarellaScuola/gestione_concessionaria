@@ -39,7 +39,14 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["modelli"][] = $conn->errorInfo();
+        $risp["modelli"][] = array(
+            "id_modello" => null,
+            "nome_modello" => "Nessun modello trovato",
+            "casa_automobilistica" => "Nessuna casa automobilistica del modello trovata",
+            "valore" => "Nessuna cilindrata del modello trovata",
+            "alimentazione" => "Nessuna alimentazione del modello trovata",
+            "descrizione" => "Nessuna categoria del modello trovata"
+          );
         echo json_encode($risp);
 
     }

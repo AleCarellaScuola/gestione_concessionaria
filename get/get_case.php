@@ -22,7 +22,11 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["case"][] = $conn->errorInfo();
+        $risp["case"][] =array(
+            "id_casa" => null,
+            "nome" => "Nessuna casa automobilistica trovata",
+            "p_iva" => "Nessuna partita iva trovata associata alla casa automobilistica",
+          );
         echo json_encode($risp);
 
     }

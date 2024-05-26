@@ -12,7 +12,8 @@
                 SELECT
                     Concessionaria_cilindrate.id_cilindrata, Concessionaria_cilindrate.valore
                 FROM
-                    Concessionaria_cilindrate";
+                    Concessionaria_cilindrate
+                ORDER BY Concessionaria_cilindrate.valore";
     $stmt = $conn->query($query, PDO::FETCH_ASSOC);
     $result = $stmt->fetchAll();
 
@@ -22,7 +23,10 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["cilindrate"][] = $conn->errorInfo();
+        $risp["cilindrate"][] = array(
+            "id_cilindrata" => null,
+            "valore" => "Nessuna cilindrata trovata"
+          );
         echo json_encode($risp);
 
     }

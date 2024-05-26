@@ -50,7 +50,7 @@
         </div>
     </div>
     <div id = "view_data">
-        <table class = "table table-bordered" id = "auto">
+        <table class = "table table-hover table-sm" id = "auto">
         <tr>
             <th>Valore</th>
             </tr>

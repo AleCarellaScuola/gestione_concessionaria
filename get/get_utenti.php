@@ -27,7 +27,17 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["utenti"][] = $conn->errorInfo();
+        $risp["utenti"][] = array(
+            "id_utente" => null,
+            "nome" => "Nessun nome dell'utente trovato",
+            "cognome" => "Nessun cognome dell'utente trovato",
+            "data_iscrizione" => "Nessuna data di iscrizione trovata",
+            "data_nascita" => "Nessuna data di nascita trovata",
+            "email" => "Nessuna email trovata",
+            "indirizzo" => "Nessun indirizzo trovato",
+            "nome_provincia" => "Nessuna provincia trovata",
+            "acronimo" => "Nessun acronimo della provincia trovato"
+        );
         echo json_encode($risp);
 
     }

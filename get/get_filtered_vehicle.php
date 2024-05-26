@@ -125,7 +125,17 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["veicoli_filtrati"][] = $conn->errorInfo();
+        $risp["veicoli_filtrati"][] = array(
+            "id_modello" => null,
+            "nome_modello" => "Nessun modello del veicolo trovato",
+            "casa_produttrice" => "Nessuna casa automobilistica del modello trovata",
+            "valore" => "Nessuna cilindrata del modello trovata",
+            "alimentazione" => "Nessuna alimentazione del modello trovata",
+            "descrizione" => "Nessuna categoria del veicolo trovata",
+            "prezzo" => "Nessun prezzo del veicolo trovato",
+            "riferimento" => "Nessuna foto del veicolo trovata",
+            "id_veicolo" => null
+        );
         echo json_encode($risp);
 
     }

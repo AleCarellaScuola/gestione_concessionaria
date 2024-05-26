@@ -21,7 +21,10 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["alimentazioni"][] = $conn->errorInfo();
+        $risp["alimentazioni"][] = array(
+            "id_alimentazione" => null,
+            "nome" => "Nessuna alimentazione trovata"
+          );
         echo json_encode($risp);
 
     }

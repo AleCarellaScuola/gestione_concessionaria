@@ -42,7 +42,12 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["seconda_query"][] = $conn->errorInfo();
+        $risp["seconda_query"][] = array(
+            "nome_provincia" => "Nessuna provincia trovata",
+            "Eta" => "Nessuna eta trovata",
+            "descrizione" => "Nessuna categoria trovata",
+            "nome" => "Nessun modello trovato"
+        );
         echo json_encode($risp);
 
     }

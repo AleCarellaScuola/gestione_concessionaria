@@ -13,7 +13,7 @@
                     Concessionaria_visite.data_visita,
                     Concessionaria_utenti.nome, Concessionaria_utenti.cognome,
                     Concessionaria_veicoli.prezzo,
-                    Concessionaria_modelli.nome
+                    Concessionaria_modelli.nome AS nome_modello
                 FROM
                     Concessionaria_visite
                 JOIN
@@ -34,7 +34,13 @@
         }
         echo (json_encode($risp));
     } else {
-        $risp["visite"][] = $conn->errorInfo();
+        $risp["visite"][] = array(
+            "data_visita" => "Nessuna data della visita trovata",
+            "nome" => "Nessun nome dell'utente trovato",
+            "cognome" => "Nessun cognome dell'utente trovato",
+            "prezzo" => "Nessuna prezzo trovato",
+            "nome_modello" => "Nessun modello trovato"
+        );
         echo json_encode($risp);
 
     }

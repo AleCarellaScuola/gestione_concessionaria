@@ -238,7 +238,6 @@
 
     function filter_vehicle()
     {
-        //TODO se non trova nulla stampargli che non ha trovato null
         let order_condition = "";
         if($("#cresc").is(":checked")) {
             order_condition = $("#cresc").attr("id");
